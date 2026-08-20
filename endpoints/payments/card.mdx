@@ -1,0 +1,44 @@
+---
+title: "Create card charge"
+description: "Process a card payment"
+---
+
+```http
+POST /gateway/card/receive
+```
+
+Processes a card payment.
+
+## Payload
+
+```json
+{
+  "identifier": "card-123",
+  "amount": 197,
+  "installments": 3,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00",
+    "address": {
+      "country": "BR",
+      "zipCode": "01304-000",
+      "state": "SP",
+      "city": "São Paulo",
+      "street": "Rua Augusta",
+      "neighborhood": "Consolação",
+      "number": "6312",
+      "complement": "6 andar"
+    }
+  },
+  "card": {
+    "holderName": "JOAO DA SILVA",
+    "number": "4111111111111111",
+    "expirationMonth": "12",
+    "expirationYear": "2030",
+    "cvv": "123"
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

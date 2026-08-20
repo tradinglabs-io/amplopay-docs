@@ -1,0 +1,54 @@
+---
+title: "Transfer webhook"
+description: "Withdrawal and transfer events"
+---
+
+## Events
+
+```text
+TRANSFER_CREATED
+TRANSFER_COMPLETED
+TRANSFER_FAILED
+```
+
+## Example
+
+```json
+{
+  "event": "TRANSFER_COMPLETED",
+  "token": "abc123",
+  "withdraw": {
+    "id": "withdraw_id",
+    "clientIdentifier": "123456",
+    "amount": 100,
+    "receivedAmount": 90,
+    "message": null,
+    "feeAmount": 10,
+    "currency": "BRL",
+    "status": "COMPLETED",
+    "createdAt": "2026-08-20T12:00:00.000Z",
+    "updatedAt": "2026-08-20T12:10:00.000Z"
+  },
+  "payoutAccount": {
+    "id": "account_id",
+    "status": "ACTIVE",
+    "ownerName": "João da Silva",
+    "ownerDocument": "123.456.789-00",
+    "pix": "cliente@gmail.com",
+    "pixType": "email",
+    "createdAt": "2026-08-20T12:00:00.000Z",
+    "updatedAt": "2026-08-20T12:00:00.000Z",
+    "deletedAt": null
+  },
+  "sents": [
+    {
+      "id": "sent_id",
+      "amount": 100,
+      "status": "COMPLETED",
+      "endToEndId": "E2ABC123",
+      "createdAt": "2026-08-20T12:10:00.000Z"
+    }
+  ],
+  "pixMetadata": null
+}
+```

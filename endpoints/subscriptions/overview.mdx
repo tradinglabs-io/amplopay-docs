@@ -1,0 +1,59 @@
+---
+title: "Subscriptions"
+description: "Subscription creation and query endpoints"
+---
+
+Use these endpoints to create and query subscriptions.
+
+<CardGroup cols={2}>
+  <Card title="Create Pix subscription" href="/endpoints/subscriptions/pix">
+    Create a recurring subscription charged through Pix.
+  </Card>
+
+  <Card title="Create card subscription" href="/endpoints/subscriptions/card">
+    Create a recurring subscription charged through card.
+  </Card>
+
+  <Card title="Create crypto subscription" href="/endpoints/subscriptions/crypto">
+    Create a recurring subscription charged through crypto.
+  </Card>
+
+  <Card title="Search subscriptions" href="/endpoints/subscriptions/search">
+    Query subscriptions created through the API.
+  </Card>
+</CardGroup>
+
+## Common creation payload
+
+```json
+{
+  "identifier": "assinatura-123",
+  "amount": 97,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "product": {
+    "id": "plano-mensal",
+    "name": "Plano mensal",
+    "price": 97
+  },
+  "subscription": {
+    "periodicityType": "MONTHS",
+    "periodicity": 1,
+    "firstChargeIn": 0
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```
+
+## Periodicity
+
+```text
+DAYS
+WEEKS
+MONTHS
+YEARS
+```

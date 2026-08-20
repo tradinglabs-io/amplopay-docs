@@ -1,0 +1,124 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "AmploPay",
+  "colors": {
+    "primary": "#e4b211",
+    "light": "#e4b211",
+    "dark": "#e4b211"
+  },
+  "favicon": {
+    "light": "/images/icon.png",
+    "dark": "/images/icon.png"
+  },
+  "navigation": {
+    "pages": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      }
+    ],
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "introduction",
+              "authentication",
+              "errors",
+              "enums"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "endpoints/status",
+              {
+                "group": "Producer",
+                "pages": [
+                  "endpoints/producer/overview",
+                  "endpoints/producer/data",
+                  "endpoints/producer/balance",
+                  "endpoints/producer/credentials"
+                ]
+              },
+              {
+                "group": "Payments",
+                "pages": [
+                  "endpoints/payments/overview",
+                  "endpoints/payments/pix",
+                  "endpoints/payments/boleto",
+                  "endpoints/payments/card",
+                  "endpoints/payments/crypto",
+                  "endpoints/payments/pix-deposit"
+                ]
+              },
+              {
+                "group": "Subscriptions",
+                "pages": [
+                  "endpoints/subscriptions/overview",
+                  "endpoints/subscriptions/pix",
+                  "endpoints/subscriptions/card",
+                  "endpoints/subscriptions/crypto",
+                  "endpoints/subscriptions/search"
+                ]
+              },
+              {
+                "group": "Transactions",
+                "pages": [
+                  "endpoints/transactions/overview",
+                  "endpoints/transactions/search",
+                  "endpoints/transactions/refund"
+                ]
+              },
+              {
+                "group": "Transfers",
+                "pages": [
+                  "endpoints/transfers/overview",
+                  "endpoints/transfers/create-pix",
+                  "endpoints/transfers/create-crypto",
+                  "endpoints/transfers/search"
+                ]
+              },
+              "endpoints/checkout",
+              "endpoints/utils"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "webhooks/overview",
+              "webhooks/payment",
+              "webhooks/transfer",
+              "webhooks/session",
+              "webhooks/chargebacks"
+            ]
+          },
+          {
+            "group": "FAQ",
+            "pages": [
+              "faq/api-blocked",
+              "faq/polling-blocked",
+              "faq/pending-sales-bucket",
+              "faq/calculate-transaction-amount",
+              "faq/how-to-use-split-api",
+              "faq/webhook-limit"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/images/logowhite.png",
+    "dark": "/images/logoblack.png"
+  },
+  "background": {
+    "decoration": "grid"
+  }
+}

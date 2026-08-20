@@ -1,0 +1,78 @@
+---
+title: "Payment webhook"
+description: "Transaction events"
+---
+
+## Events
+
+```text
+TRANSACTION_CREATED
+TRANSACTION_PAID
+TRANSACTION_CANCELED
+TRANSACTION_REFUNDED
+TRANSACTION_CHARGED_BACK
+```
+
+## Paid transaction example
+
+```json
+{
+  "event": "TRANSACTION_PAID",
+  "token": "abc123",
+  "offerCode": "ABCK181",
+  "checkoutUrl": "https://checkout.teste.com/checkout/ckxyz123?session=01890a5d-ac96-774b-bcce-b302099a8057&offer=ABCK181&code=AFILIADO123&utm_source=facebook&utm_medium=cpc",
+  "client": {
+    "id": "client_id",
+    "name": "John Doe",
+    "email": "jondoe@gmail.com",
+    "phone": "(11) 9 8888-7777",
+    "cpf": "123.456.789-10",
+    "cnpj": null,
+    "address": {
+      "country": "BR",
+      "zipCode": "01304-000",
+      "state": "SP",
+      "city": "São Paulo",
+      "neighborhood": "Consolação",
+      "street": "Rua Augusta",
+      "number": "6312",
+      "complement": "6 andar"
+    }
+  },
+  "transaction": {
+    "id": "1pned18asp",
+    "status": "COMPLETED",
+    "paymentMethod": "CREDIT_CARD",
+    "originalCurrency": "USD",
+    "originalAmount": 100,
+    "amount": 100,
+    "commissionAmount": 75,
+    "currency": "BRL",
+    "exchangeRate": 5,
+    "installments": 3,
+    "createdAt": "2026-08-20T00:00:00.000Z",
+    "payedAt": "2026-08-20T00:00:00.000Z",
+    "pixInformation": {
+      "qrCode": "00020101br.gov.bcb.pix2563pix-h.exemplo.com/pix...",
+      "endToEndId": "E123456789012345678901234567890123456789012345"
+    }
+  },
+  "subscription": null,
+  "orderItems": [
+    {
+      "id": "item_id",
+      "price": 100,
+      "product": {
+        "id": "product_id",
+        "name": "Curso de marketing",
+        "externalId": "KSA912"
+      }
+    }
+  ],
+  "trackProps": {
+    "isUpsell": false,
+    "ip": "179.241.111.122",
+    "user_agent": "Mozilla/5.0 ..."
+  }
+}
+```

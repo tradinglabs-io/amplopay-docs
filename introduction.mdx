@@ -1,0 +1,42 @@
+---
+title: "Introduction"
+description: "Overview of the Gateway API"
+---
+
+Welcome to the `{settings.title}` API documentation.
+
+The Gateway API lets you integrate payments and financial management into your application, including Pix, boleto, card, and crypto payments, subscriptions, withdrawals, transfers, balance queries, transaction queries, and webhooks.
+
+<Info>
+  This documentation covers only the Gateway. The sub/acquirer documentation rendered through Swagger/Scalar is not included here.
+</Info>
+
+## Base URL
+
+Use the base URL below for all requests:
+
+```text
+{API_BASE_URL}
+```
+
+All requests must use HTTPS.
+
+## REST format
+
+The API follows REST principles and uses standard HTTP status codes to indicate success or failure.
+
+| Code | Meaning |
+| --- | --- |
+| `200 OK` | Request succeeded |
+| `201 Created` | Resource created successfully |
+| `400 Bad Request` | Invalid data or validation error |
+| `401 Unauthorized` | Missing or invalid credentials |
+| `404 Not Found` | Resource not found |
+| `500 Internal Server Error` | Internal server error |
+
+## Best practices
+
+- Use webhooks to track status changes.
+- Avoid frequent polling on query endpoints.
+- Never expose private keys in source code, frontend code, or repositories.
+- Use `callbackUrl` per operation when you need specific URLs for notifications.

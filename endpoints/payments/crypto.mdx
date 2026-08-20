@@ -1,0 +1,29 @@
+---
+title: "Create crypto charge"
+description: "Create a cryptocurrency charge"
+---
+
+```http
+POST /gateway/crypto/receive
+```
+
+Creates a cryptocurrency charge.
+
+## Payload
+
+```json
+{
+  "identifier": "crypto-123",
+  "amount": 100,
+  "currency": "BRL",
+  "cryptoCurrency": "USDT",
+  "network": "TRON",
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

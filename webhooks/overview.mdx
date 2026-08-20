@@ -1,0 +1,32 @@
+---
+title: "Webhooks overview"
+description: "How to receive notifications from the Gateway API"
+---
+
+Webhooks are sent to the URL configured in the request `callbackUrl` or in the dashboard settings.
+
+Every webhook includes a `token` so you can validate the authenticity of the notification.
+
+## Recommendations
+
+- Respond quickly with a `2xx` status.
+- Process heavy tasks asynchronously.
+- Validate the received `token`.
+- Log received events for auditing.
+- Avoid using query endpoints for polling. Prefer webhooks.
+
+## Available events
+
+```text
+TRANSACTION_CREATED
+TRANSACTION_PAID
+TRANSACTION_CANCELED
+TRANSACTION_REFUNDED
+TRANSACTION_CHARGED_BACK
+TRANSFER_CREATED
+TRANSFER_COMPLETED
+TRANSFER_FAILED
+SESSION_CREATED
+SESSION_UPDATED
+SESSION_ABANDONED
+```

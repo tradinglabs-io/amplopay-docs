@@ -1,0 +1,78 @@
+---
+title: "Enums"
+description: "Possible values for enumerated API fields"
+---
+
+## Transaction status
+
+| Value | Description |
+| --- | --- |
+| `COMPLETED` | Transaction completed |
+| `PENDING` | Transaction pending |
+| `FAILED` | Transaction failed |
+| `REFUNDED` | Transaction refunded |
+| `CHARGED_BACK` | Transaction charged back |
+
+## Payment methods
+
+| Value | Description |
+| --- | --- |
+| `PIX` | Pix |
+| `BOLETO` | Boleto |
+| `CREDIT_CARD` | Card |
+| `SPLIT` | Payment split |
+| `TED` | Transfer |
+| `DYNAMIC` | Dynamic, for other methods |
+
+## Transaction type
+
+| Value | Description |
+| --- | --- |
+| `ONCE` | One-time purchase |
+| `RECURRING` | Subscription |
+
+## API permissions
+
+| Value | Description |
+| --- | --- |
+| `PRODUCER_DATA` | Allows querying producer data |
+| `PRODUCER_TRANSACTIONS` | Allows creating and querying transactions |
+| `PRODUCER_WITHDRAWS` | Allows creating and querying withdrawals/transfers |
+| `PRODUCER_CHECKOUT` | Allows creating checkouts through the API |
+
+## Pix key types
+
+```text
+cpf
+cnpj
+email
+phone
+random
+```
+
+## Document types
+
+```text
+cpf
+cnpj
+```
+
+## Subscription periodicity
+
+```text
+DAYS
+WEEKS
+MONTHS
+YEARS
+```
+
+## Checkout session status
+
+```text
+ACTIVE
+HIDDEN
+CLOSED
+FINISHED
+ERROR
+ABANDONED
+```

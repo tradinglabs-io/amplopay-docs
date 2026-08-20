@@ -1,0 +1,38 @@
+---
+title: "Create crypto subscription"
+description: "Create a recurring subscription charged through crypto"
+---
+
+```http
+POST /gateway/crypto/subscription
+```
+
+Creates a crypto subscription.
+
+## Payload
+
+```json
+{
+  "identifier": "assinatura-crypto-123",
+  "amount": 97,
+  "cryptoCurrency": "USDT",
+  "network": "TRON",
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "product": {
+    "id": "plano-crypto",
+    "name": "Plano Crypto",
+    "price": 97
+  },
+  "subscription": {
+    "periodicityType": "MONTHS",
+    "periodicity": 1,
+    "firstChargeIn": 0
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

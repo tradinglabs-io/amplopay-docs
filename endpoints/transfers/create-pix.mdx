@@ -1,0 +1,75 @@
+---
+title: "Create Pix transfer"
+description: "Create a transfer or withdrawal via Pix"
+---
+
+```http
+POST /gateway/transfers
+```
+
+Creates a transfer or withdrawal via Pix.
+
+## Payload
+
+```json
+{
+  "identifier": "identifier123",
+  "callbackUrl": "https://example.com/callback",
+  "amount": 1000,
+  "discountFeeOfReceiver": false,
+  "pix": {
+    "type": "email",
+    "key": "cliente@email.com"
+  },
+  "owner": {
+    "ip": "192.168.0.1",
+    "name": "Nome do Cliente",
+    "document": {
+      "type": "cpf",
+      "number": "123.456.789-00"
+    }
+  }
+}
+```
+
+## Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `identifier` | string | yes | Transfer identifier in your application |
+| `amount` | number | yes | Transfer amount in BRL |
+| `discountFeeOfReceiver` | boolean | no | If `false`, the fee is not deducted from the receiver |
+| `pix.type` | enum | yes | Pix key type |
+| `pix.key` | string | yes | Receiver's Pix key |
+| `owner.ip` | string | yes | IPv4 of the user performing the transfer. It must be different from the application IP |
+| `owner.name` | string | yes | Account owner's name, without accents |
+| `owner.document.type` | string | yes | Document type |
+| `owner.document.number` | string | yes | Document number |
+| `callbackUrl` | string | yes | URL for transfer notifications |
+
+## Response
+
+```json
+{
+  "webhookToken": "webhookToken123",
+  "withdraw": {
+    "id": "withdraw123",
+    "amount": 1000,
+    "feeAmount": 10,
+    "currency": "BRL",
+    "status": "PENDING",
+    "createdAt": "2026-08-20T00:00:00.000Z",
+    "updatedAt": "2026-08-20T00:00:00.000Z"
+  },
+  "payoutAccount": {
+    "id": "payoutAccount123",
+    "status": "ACTIVE",
+    "pix": "produtor@email.com",
+    "pixType": "email",
+    "createdAt": "2026-08-20T00:00:00.000Z",
+    "updatedAt": "2026-08-20T00:00:00.000Z",
+    "deletedAt": null
+  },
+  "receiptUrl": "https://example.com/withdraws/cmen9ufoa00002v6oi1zo8x3f/receipt"
+}
+```

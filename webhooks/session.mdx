@@ -1,0 +1,59 @@
+---
+title: "Session webhook"
+description: "Checkout session events"
+---
+
+## Events
+
+```text
+SESSION_CREATED
+SESSION_UPDATED
+SESSION_ABANDONED
+```
+
+## Session created
+
+```json
+{
+  "event": "SESSION_CREATED",
+  "token": "abc123",
+  "checkoutUrl": "https://checkout.teste.com/checkout/ckxyz123?session=01890a5d-ac96-774b-bcce-b302099a8057&offer=ABCK181",
+  "checkoutSessionGuid": "session_guid",
+  "checkoutSessionStatus": "ACTIVE",
+  "checkoutSessionUpdatedAt": "2026-08-20T12:00:00.000Z",
+  "isRecovered": false,
+  "data": {
+    "orderId": null,
+    "checkoutId": "checkout_id",
+    "productId": "product_id",
+    "client": null
+  }
+}
+```
+
+## Session abandoned
+
+```json
+{
+  "event": "SESSION_ABANDONED",
+  "token": "abc123",
+  "checkoutUrl": "https://checkout.teste.com/checkout/ckxyz123?session=01890a5d-ac96-774b-bcce-b302099a8057&offer=ABCK181",
+  "checkoutSessionGuid": "session_guid",
+  "checkoutSessionStatus": "ABANDONED",
+  "checkoutSessionUpdatedAt": "2026-08-20T12:00:00.000Z",
+  "checkoutSessionAbandonedAt": "2026-08-20T12:30:00.000Z",
+  "isRecovered": false,
+  "data": {
+    "orderId": "order_id",
+    "checkoutId": "checkout_id",
+    "productId": "product_id",
+    "client": {
+      "email": "client@email.com",
+      "name": "Nome do cliente",
+      "phone": "(11) 98337-5111",
+      "cpf": "111.222.333-44",
+      "cnpj": null
+    }
+  }
+}
+```

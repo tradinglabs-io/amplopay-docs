@@ -1,0 +1,38 @@
+---
+title: "Error handling"
+description: "Error format and common codes"
+---
+
+The API returns errors in JSON format, with information that helps your application handle failures correctly.
+
+## Common format
+
+```json
+{
+  "statusCode": 400,
+  "errorCode": "INVALID_INPUT",
+  "message": "O valor fornecido para o campo 'amount' é inválido.",
+  "details": {
+    "field": "amount",
+    "value": -20,
+    "issue": "O valor deve ser positivo e maior que zero."
+  }
+}
+```
+
+## Common codes
+
+| Code | Description |
+| --- | --- |
+| `INVALID_INPUT` | Invalid data |
+| `UNAUTHORIZED` | Missing or invalid credentials |
+| `FORBIDDEN` | No permission to access the resource |
+| `NOT_FOUND` | Resource not found |
+| `INTERNAL_ERROR` | Internal error |
+| `RATE_LIMITED` | Request limit exceeded |
+| `API_BLOCKED` | API blocked due to location, configuration, or IP |
+| `POLLING_BLOCKED` | Frequent polling blocked |
+
+## Recommendation
+
+Handle errors using `statusCode` and `errorCode`. Show friendly messages to end users and log `details` internally when available.

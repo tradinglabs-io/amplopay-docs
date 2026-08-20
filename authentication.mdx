@@ -1,0 +1,80 @@
+---
+title: "Authenticate Requests to the AmploPay API"
+sidebarTitle: "Authentication"
+description: "AmploPay uses HTTP Basic authentication with a Client ID and Client Secret generated from the merchant panel to authorize every API request."
+---
+
+AmploPay authenticates every API call with a **Client ID** and **Client Secret** pair. Both values are generated from the AmploPay merchant panel and must be sent with every request using HTTP Basic authentication.
+
+## Get your credentials
+
+<Steps>
+  <Step title="Open the panel">
+    Sign in at [app.amplopay.com](https://app.amplopay.com) and go to **Integrations → API**.
+  </Step>
+  <Step title="Create a new credential">
+    Click **New credential**, give it a descriptive name, and select the **Create/Consult transactions** scope.
+  </Step>
+  <Step title="Copy the values">
+    Copy the **Client ID** and **Client Secret**. The Client Secret is shown only once, store it in a secret manager.
+  </Step>
+</Steps>
+
+## Sign a request
+
+Pass the credentials as HTTP Basic authentication. The `Authorization` header is the base64 encoding of `client_id:client_secret`.
+
+<CodeGroup>
+
+```bash curl
+curl https://api.amplopay.com/v1/transactions/tx_123 \
+  -u "$AMPLOPAY_CLIENT_ID:$AMPLOPAY_CLIENT_SECRET"
+```
+
+```javascript Node.js
+const credentials = Buffer.from(
+  `${process.env.AMPLOPAY_CLIENT_ID}:${process.env.AMPLOPAY_CLIENT_SECRET}`
+).toString("base64");
+
+await fetch("https://api.amplopay.com/v1/transactions/tx_123", {
+  headers: { Authorization: `Basic ${credentials}` },
+});
+```
+
+```python Python
+import os
+import requests
+
+requests.get(
+    "https://api.amplopay.com/v1/transactions/tx_123",
+    auth=(os.environ["AMPLOPAY_CLIENT_ID"], os.environ["AMPLOPAY_CLIENT_SECRET"]),
+)
+```
+
+</CodeGroup>
+
+## Security best practices
+
+- **Never** commit credentials to source control. Load them from environment variables or a secret manager.
+- Restrict credential scopes to only what your integration needs.
+- Rotate credentials periodically, and immediately if you suspect a leak.
+- Use HTTPS for every request. AmploPay refuses plaintext HTTP.
+
+## Errors
+
+If authentication fails, the API responds with `401 Unauthorized`:
+
+```json
+{
+  "message": "Invalid credentials"
+}
+```
+
+Common causes:
+
+| Cause | Fix |
+| --- | --- |
+| Wrong Client ID or Client Secret | Double-check the values from the panel. |
+| Credential revoked | Generate a new credential. |
+| Missing `Authorization` header | Include the header on every request. |
+| Insufficient scope | Enable **Create/Consult transactions** on the credential. |

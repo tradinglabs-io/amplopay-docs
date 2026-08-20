@@ -1,0 +1,36 @@
+---
+title: "Create Pix subscription"
+description: "Create a recurring subscription charged through Pix"
+---
+
+```http
+POST /gateway/pix/subscription
+```
+
+Creates a Pix subscription.
+
+## Payload
+
+```json
+{
+  "identifier": "assinatura-123",
+  "amount": 97,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "product": {
+    "id": "plano-mensal",
+    "name": "Plano mensal",
+    "price": 97
+  },
+  "subscription": {
+    "periodicityType": "MONTHS",
+    "periodicity": 1,
+    "firstChargeIn": 0
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

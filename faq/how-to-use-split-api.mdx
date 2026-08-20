@@ -1,0 +1,25 @@
+---
+title: "Split through the API"
+description: "How to use payment split"
+---
+
+To use split, include `splits` when creating the transaction.
+
+```json
+{
+  "identifier": "split-123",
+  "amount": 100,
+  "splits": [
+    {
+      "producerId": "producer_destino_1",
+      "amount": 20
+    },
+    {
+      "producerId": "producer_destino_2",
+      "amount": 10
+    }
+  ]
+}
+```
+
+The remaining amount, after applicable fees are deducted, stays with the main producer.

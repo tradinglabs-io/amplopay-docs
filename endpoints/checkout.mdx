@@ -1,0 +1,38 @@
+---
+title: "Checkout"
+description: "Create checkout through the API"
+---
+
+## Create checkout
+
+```http
+POST /gateway/checkout
+```
+
+Creates a product, offer, and checkout link through the API.
+
+<Info>
+  This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company setting that allows checkout creation through the API.
+</Info>
+
+### Payload
+
+```json
+{
+  "product": {
+    "id": "produto-123",
+    "name": "Curso de marketing",
+    "description": "Produto de exemplo",
+    "price": 197,
+    "imageUrl": "https://minha-api.com/produto.png"
+  },
+  "offer": {
+    "code": "OFERTA10",
+    "price": 197,
+    "currency": "BRL"
+  },
+  "successUrl": "https://minha-api.com/sucesso",
+  "cancelUrl": "https://minha-api.com/cancelado",
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

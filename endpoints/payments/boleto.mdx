@@ -1,0 +1,27 @@
+---
+title: "Create boleto charge"
+description: "Create a boleto charge"
+---
+
+```http
+POST /gateway/boleto/receive
+```
+
+Creates a boleto charge.
+
+## Payload
+
+```json
+{
+  "identifier": "boleto-123",
+  "amount": 150,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "dueDate": "2026-08-25",
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```

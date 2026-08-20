@@ -1,0 +1,33 @@
+---
+title: "Chargeback webhook"
+description: "Transaction chargeback event"
+---
+
+## Event
+
+```text
+TRANSACTION_CHARGED_BACK
+```
+
+## Example
+
+```json
+{
+  "event": "TRANSACTION_CHARGED_BACK",
+  "token": "abc123",
+  "transaction": {
+    "id": "transaction_id",
+    "status": "CHARGED_BACK",
+    "paymentMethod": "CREDIT_CARD",
+    "amount": 100,
+    "currency": "BRL",
+    "createdAt": "2026-08-20T12:00:00.000Z",
+    "payedAt": "2026-08-20T12:05:00.000Z"
+  },
+  "client": {
+    "id": "client_id",
+    "name": "John Doe",
+    "email": "jondoe@gmail.com"
+  }
+}
+```

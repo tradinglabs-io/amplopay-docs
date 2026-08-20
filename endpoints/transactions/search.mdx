@@ -1,0 +1,61 @@
+---
+title: "Search transactions"
+description: "Query transactions created through the API"
+---
+
+```http
+GET /gateway/transactions
+```
+
+Queries created transactions.
+
+<Warning>
+  Do not use this endpoint for frequent polling. Configure webhooks to receive real-time status updates.
+</Warning>
+
+## Query params
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | string | no | Transaction ID returned by the API |
+| `clientIdentifier` | string | no | Identifier you sent when creating the transaction |
+
+## Response
+
+```json
+{
+  "id": "cmry2h8332sgs3ub44fh7",
+  "clientIdentifier": "5286-412312-asd-123",
+  "currency": "BRL",
+  "amount": 49.8,
+  "chargeAmount": 49.8,
+  "exchangeRate": 1,
+  "producerExtraAmount": 0,
+  "status": "FAILED",
+  "statusDescription": null,
+  "purchaseType": "ONCE",
+  "paymentMethod": "PIX",
+  "details": null,
+  "errorDescription": "Transaction denied by anti-fraud",
+  "webhookUrl": null,
+  "availableAt": null,
+  "createdAt": "2026-08-20T00:00:00.000Z",
+  "refundedAt": null,
+  "payedAt": null,
+  "boletoInformation": null,
+  "pixInformation": {
+    "qrCode": "00020101065465468949845BR.GOV.BCB.PIX...",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Link_pra_pagina_principal_da_Wikipedia-PT_em_codigo_QR_b.svg",
+    "base64": ""
+  },
+  "pixMetadata": {
+    "payerBankName": "Caixa Economica Federal",
+    "payerDocument": "123.456.789-00",
+    "payerName": "João da Silva",
+    "receiverBankName": "Banco do Brasil",
+    "receiverDocument": "987.654.321-00",
+    "receiverName": "Maria da Silva",
+    "receiverPixKey": "98765432100"
+  }
+}
+```

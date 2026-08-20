@@ -1,0 +1,38 @@
+---
+title: "Create Pix charge"
+description: "Create a Pix charge"
+---
+
+```http
+POST /gateway/pix/receive
+```
+
+Creates a Pix charge.
+
+## Payload
+
+```json
+{
+  "identifier": "pedido-123",
+  "amount": 100,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "products": [
+    {
+      "id": "produto-1",
+      "name": "Produto 1",
+      "quantity": 1,
+      "price": 100
+    }
+  ],
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```
+
+## QR Code note
+
+The Pix `base64` field is deprecated and returns an empty string. Render the QR Code from the `qrCode` or `code` field, depending on the endpoint response.

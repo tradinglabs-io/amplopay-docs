@@ -1,0 +1,43 @@
+---
+title: "Create card subscription"
+description: "Create a recurring subscription charged through card"
+---
+
+```http
+POST /gateway/card/subscription
+```
+
+Creates a card subscription.
+
+## Payload
+
+```json
+{
+  "identifier": "assinatura-card-123",
+  "amount": 97,
+  "client": {
+    "name": "João da Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "document": "123.456.789-00"
+  },
+  "card": {
+    "holderName": "JOAO DA SILVA",
+    "number": "4111111111111111",
+    "expirationMonth": "12",
+    "expirationYear": "2030",
+    "cvv": "123"
+  },
+  "product": {
+    "id": "plano-mensal",
+    "name": "Plano mensal",
+    "price": 97
+  },
+  "subscription": {
+    "periodicityType": "MONTHS",
+    "periodicity": 1,
+    "firstChargeIn": 0
+  },
+  "callbackUrl": "https://minha-api.com/webhooks/payment"
+}
+```
