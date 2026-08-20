@@ -24,6 +24,58 @@ Processes a card payment.
   Customer information, including address when required by the card processor.
 </ParamField>
 
+<ParamField body="client.name" type="string" required>
+  Customer full name.
+</ParamField>
+
+<ParamField body="client.email" type="string" required>
+  Customer email address.
+</ParamField>
+
+<ParamField body="client.phone" type="string" required>
+  Customer phone number.
+</ParamField>
+
+<ParamField body="client.document" type="string" required>
+  Customer document, such as CPF or CNPJ for Brazilian customers.
+</ParamField>
+
+<ParamField body="client.address" type="object">
+  Customer billing address.
+</ParamField>
+
+<ParamField body="client.address.country" type="string">
+  Customer country code, such as `BR`.
+</ParamField>
+
+<ParamField body="client.address.zipCode" type="string">
+  Customer ZIP code.
+</ParamField>
+
+<ParamField body="client.address.state" type="string">
+  Customer state code, such as `SP`.
+</ParamField>
+
+<ParamField body="client.address.city" type="string">
+  Customer city.
+</ParamField>
+
+<ParamField body="client.address.street" type="string">
+  Customer street.
+</ParamField>
+
+<ParamField body="client.address.neighborhood" type="string">
+  Customer neighborhood.
+</ParamField>
+
+<ParamField body="client.address.number" type="string">
+  Customer address number.
+</ParamField>
+
+<ParamField body="client.address.complement" type="string">
+  Customer address complement.
+</ParamField>
+
 <ParamField body="card" type="object" required>
   Card data used to process the payment.
 </ParamField>
@@ -50,6 +102,46 @@ Processes a card payment.
 
 <ParamField body="callbackUrl" type="string">
   URL that will receive payment status webhook notifications.
+</ParamField>
+
+<ParamField body="products" type="array">
+  Products included in the transaction.
+</ParamField>
+
+<ParamField body="products[].id" type="string">
+  Product identifier in your application.
+</ParamField>
+
+<ParamField body="products[].name" type="string">
+  Product name.
+</ParamField>
+
+<ParamField body="products[].quantity" type="number">
+  Product quantity.
+</ParamField>
+
+<ParamField body="products[].price" type="number">
+  Product unit price in BRL.
+</ParamField>
+
+<ParamField body="shippingFee" type="number">
+  Shipping fee in BRL.
+</ParamField>
+
+<ParamField body="extraFee" type="number">
+  Additional fee in BRL.
+</ParamField>
+
+<ParamField body="discount" type="number">
+  Discount amount in BRL.
+</ParamField>
+
+<ParamField body="splits" type="array">
+  Payment split configuration.
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Free-form metadata associated with the transaction.
 </ParamField>
 
 ## Request example

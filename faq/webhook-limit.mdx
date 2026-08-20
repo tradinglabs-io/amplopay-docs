@@ -1,8 +1,96 @@
 ---
 title: "Webhook limit"
-description: "How to handle the configurable webhook limit"
+description: "Why creating too many dynamic callback URLs can hit the webhook limit"
 ---
 
-There is a limit on configurable webhooks per integration.
+## The problem
 
-When you need operation-specific URLs, prefer sending `callbackUrl` directly in the transaction, subscription, or transfer creation request.
+When using the API to create transactions, you may encounter the following error:
+
+```json
+{
+  "error": "Você pode criar no máximo {MAX_WEBHOOKS} webhooks"
+}
+```
+
+## Why this happens
+
+This limit is a platform security lock. It exists because many integrators send a different `callbackUrl` for each new transaction.
+
+Common incorrect usage:
+
+```json
+// Transaction 1
+{
+  "callbackUrl": "https://meusite.com/pedido/123"
+}
+
+// Transaction 2
+{
+  "callbackUrl": "https://meusite.com/pedido/456"
+}
+
+// Transaction 3
+{
+  "callbackUrl": "https://meusite.com/pedido/789"
+}
+```
+
+This pattern creates a new webhook for every transaction, quickly reaching the webhook limit.
+
+## Why this is unnecessary
+
+Including your application's internal ID in the `callbackUrl` is unnecessary because the API already returns this information in the webhook body and in the API response.
+
+When creating a transaction, send your internal system ID in the `identifier` field. The same identifier is returned:
+
+- In the API response when creating the transaction.
+- In the webhook body when the transaction is updated.
+
+This lets you identify which transaction in your system is being updated without creating unique URLs.
+
+## How to resolve it
+
+Standardize `callbackUrl` by using a single fixed URL for all transactions in your integration with `{settings.title}`.
+
+```json
+// All transactions should use the same callbackUrl
+{
+  "callbackUrl": "https://meusite.com/integracao/{companySlug}",
+  "identifier": "pedido-123"
+}
+
+{
+  "callbackUrl": "https://meusite.com/integracao/{companySlug}",
+  "identifier": "pedido-456"
+}
+
+{
+  "callbackUrl": "https://meusite.com/integracao/{companySlug}",
+  "identifier": "pedido-789"
+}
+```
+
+## How to identify the transaction in the webhook
+
+When you receive the webhook at your fixed URL, the request body contains `transaction.identifier` with the value you sent when creating the transaction:
+
+```json
+{
+  "event": "TRANSACTION_PAID",
+  "transaction": {
+    "id": "abc123",
+    "identifier": "pedido-123",
+    "status": "COMPLETED"
+  }
+}
+```
+
+Use `identifier` to find the corresponding transaction in your system and update its status.
+
+## Summary
+
+- Do not include dynamic IDs in `callbackUrl`.
+- Use a fixed URL for all transactions, such as `https://meusite.com/integracao/{companySlug}`.
+- Send your system's internal ID in `identifier` when creating the transaction.
+- Use the `identifier` returned in the webhook to identify the transaction.

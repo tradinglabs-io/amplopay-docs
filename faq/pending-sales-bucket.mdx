@@ -1,8 +1,63 @@
 ---
 title: "Pending sales bucket"
-description: "How to handle pending sales"
+description: "How pending sales limits work"
 ---
 
-Pending sales may be grouped temporarily while payment confirmation is pending.
+## The problem
 
-Use webhooks to receive updates when a transaction is paid, canceled, refunded, or charged back.
+When creating many sales that remain processing at the same time, you may receive a temporary limit response:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "TOO_MANY_REQUESTS",
+    "message": "Sua conta atingiu o limite de vendas pendentes para este metodo de pagamento. Aguarde a liberacao do limite ou a atualizacao das vendas pendentes."
+  }
+}
+```
+
+## Why this happens
+
+This block is an operational protection for accounts that have a pending sales limit configured. It prevents the same account from accumulating too many transactions waiting for payment or confirmation in a short period.
+
+The behavior is similar to Pix security mechanisms such as `DICT`: when behavior reaches a risk or volume threshold, new operations can be temporarily restricted until the flow returns to normal.
+
+## Not all accounts are blocked
+
+This limit is not applied to every account. It depends on your account's operational configuration, account profile, and payment method.
+
+If your account does not have this control enabled, transaction creation does not go through this pending sales bucket.
+
+## How the bucket works
+
+Each pending sale consumes one unit from the configured limit for the payment method. While the transaction remains `PENDING`, that unit remains occupied.
+
+- If a sale is created and remains `PENDING`, it keeps counting toward the temporary limit.
+- If the sale is paid, canceled, rejected, or refunded, the unit is released.
+- If the time window expires, the limit is automatically renewed.
+- The control is separated by payment method, such as `PIX`, `CREDIT_CARD`, or `BOLETO`.
+
+## Practical example
+
+Imagine an account configured to allow 100 pending Pix sales in a 10-minute window:
+
+1. The first 100 pending Pix sales are created normally.
+2. The 101st attempt may receive `TOO_MANY_REQUESTS`.
+3. When one pending sale is paid, canceled, or the window expires, a new sale can be created.
+
+## How to resolve it
+
+In most cases, you do not need to change credentials or recreate the integration. The block is temporary. To reduce the chance of it happening:
+
+- Avoid creating multiple transactions for the same order or customer without need.
+- Wait for status updates through webhook before generating a new charge for the same purchase intent.
+- Use the `identifier` field to reuse your order reference and avoid duplicates in your system.
+- Implement retries with progressive backoff when receiving `TOO_MANY_REQUESTS`.
+
+## Summary
+
+- The bucket temporarily limits new sales when too many sales are pending at the same time.
+- The behavior is similar to Pix security locks, such as `DICT`.
+- Not every account has this block; it depends on account configuration and operational profile.
+- The limit is released when pending sales change status or when the time window expires.

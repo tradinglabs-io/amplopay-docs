@@ -1,25 +1,36 @@
 ---
 title: "Split through the API"
-description: "How to use payment split"
+description: "How to split payments between producers"
 ---
 
-To use split, include `splits` when creating the transaction.
+## Splitting payments with splits
+
+In payment routes, such as `Receive Pix`, `Receive Card`, and `Receive Boleto`, you can include an optional field called `splits` to automatically split the transaction amount between different accounts.
 
 ```json
 {
-  "identifier": "split-123",
-  "amount": 100,
   "splits": [
     {
-      "producerId": "producer_destino_1",
-      "amount": 20
+      "producerId": "cm1234",
+      "amount": 30.0
     },
     {
-      "producerId": "producer_destino_2",
-      "amount": 10
+      "producerId": "cm9876",
+      "amount": 20.0
     }
   ]
 }
 ```
 
-The remaining amount, after applicable fees are deducted, stays with the main producer.
+## How it works
+
+The `splits` field must be an array of objects. Each object represents a portion of the sale that will be sent to another producer.
+
+Each split object must contain:
+
+- `producerId`: ID of the account that will receive the split. The receiver should copy their own ID from the profile settings page and send it to the account creating the split.
+- `amount`: amount in BRL that will be transferred to that account.
+
+The sum of all `amount` values inside `splits` cannot exceed the total transaction amount.
+
+If you do not send `splits`, 100% of the amount is assigned to the main account creating the payment.

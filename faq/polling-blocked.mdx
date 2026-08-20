@@ -1,8 +1,81 @@
 ---
 title: "Polling blocked"
-description: "Why frequent queries can be blocked"
+description: "Why repeated status queries can be blocked"
 ---
 
-Query endpoints should not be used for frequent polling.
+## The problem
 
-To track status changes in real time, configure webhooks. They notify your application when a transaction, transfer, or session changes state.
+When repeatedly querying a transaction or order status, you may receive this error:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "TOO_MANY_REQUESTS",
+    "message": "Tentativa de polling bloqueada. Receba atualizações via webhook."
+  }
+}
+```
+
+## Why this happens
+
+This block protects both the platform and producers. When you make multiple query requests in a short period of time, known as `polling`, you overload servers and may affect performance for other producers.
+
+`{settings.title}` is designed to work asynchronously:
+
+- You create a transaction and receive a confirmation ID.
+- You wait for payment, such as Pix or card.
+- You receive update notifications through webhooks.
+
+## Correct flow
+
+The correct architecture does not require repeatedly checking status:
+
+1. When creating a transaction, send the `callbackUrl` parameter with the URL of your server that will receive notifications.
+2. When the transaction status changes, for example from `PENDING` to `PAID`, `{settings.title}` sends a webhook to your `callbackUrl`.
+3. Your server processes the webhook and updates the order status internally.
+
+See the Webhooks documentation for more details.
+
+## When to use queries
+
+Query routes, such as `/v1/transactions`, should be used only when necessary, for example:
+
+- You have not received the webhook after a reasonable time, such as more than 5 minutes.
+- For reconciliation, to check if any transaction was not notified.
+- For one-off support checks.
+
+## How to resolve it
+
+If you are receiving this error, change your application flow to use webhooks:
+
+1. Configure a webhook by sending `callbackUrl` when creating the transaction.
+2. Implement an endpoint on your server to receive notifications.
+3. Remove polling loops from your code.
+4. Store the transaction ID for future manual queries when necessary.
+
+## Implementation example
+
+```ts
+// When creating the transaction, send callbackUrl
+const transaction = await createTransaction({
+  amount: 100.0,
+  callbackUrl: "https://your-server.com/webhook/transaction"
+})
+
+// Do not poll anymore.
+// Now just wait for the webhook.
+
+app.post("/webhook/transaction", async (req, res) => {
+  const { id, status } = req.body
+  await updateOrderStatus(id, status)
+  res.status(200).send("OK")
+})
+```
+
+## Summary
+
+- The error happens when you repeatedly query status through polling.
+- `{settings.title}` is designed for asynchronous notifications through webhooks.
+- The solution is to implement webhooks and remove polling from your code.
+- Use queries only as a fallback when a webhook is not received.

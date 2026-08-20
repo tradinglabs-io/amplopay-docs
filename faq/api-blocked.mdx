@@ -1,13 +1,69 @@
 ---
 title: "API blocked"
-description: "What to do when the API is blocked"
+description: "Why API requests can return a 403 HTML page"
 ---
 
-If the API is blocked, check the following:
+## The problem
 
-- Whether your credentials are correct.
-- Whether your account has permission to use the API.
-- Whether your application IP must be authorized in the API settings.
-- Whether there is a block due to location, plan, or security rules.
+When making API requests, you may receive an HTML error page instead of the expected JSON response:
 
-If you have questions, contact the AmploPay support team through your dashboard.
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>403</title>
+  <link rel="stylesheet" href="/_codes/styles.css" />
+</head>
+<body data-page="error" data-status="403">
+  <div class="container simple-page">
+    <div class="status-code">HTTP <span id="code">403</span></div>
+    <h1 id="title"></h1>
+    <p class="description" id="description"></p>
+  </div>
+  <script src="/_codes/page.js"></script>
+</body>
+</html>
+```
+
+## Why this happens
+
+This block is a platform security measure. The API has a firewall that monitors request origins and blocks traffic from unusual or suspicious locations.
+
+The firewall protects both the platform and integrators from attacks and malicious activity.
+
+## Security technologies
+
+We use security services to protect the infrastructure:
+
+- `Cloudfront`: Amazon Web Services content delivery network.
+- `AWS WAF`: Amazon Web Services web application firewall.
+
+These tools analyze traffic and block requests from locations that are not recognized as safe or that show suspicious patterns.
+
+## Accepted locations
+
+Requests are allowed when they originate from locations considered safe, such as:
+
+- `Brazil`
+- `United States`
+- `Portugal`
+- `Other locations considered safe`
+
+## How to resolve it
+
+If you are facing this issue, the solution is to change the request origin to one of the accepted locations above.
+
+You can do this by:
+
+- Using a server located in one of the accepted countries, such as Brazil, the United States, or Portugal.
+- Using a VPN with a server in one of the accepted countries.
+- Using cloud services, such as AWS, Google Cloud, or Azure, with servers in data centers in accepted countries.
+
+## Summary
+
+- The block happens when the request comes from a location that is not recognized as safe.
+- The response is an HTML error page instead of JSON.
+- The solution is to change the request origin to a server located in Brazil, the United States, Portugal, or another safe location.
+- It is not possible to request an exception or IP whitelist for this type of block.

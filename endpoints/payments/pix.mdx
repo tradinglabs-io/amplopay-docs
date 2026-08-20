@@ -40,6 +40,54 @@ Creates a Pix charge.
   Products included in the transaction.
 </ParamField>
 
+<ParamField body="products[].id" type="string">
+  Product identifier in your application.
+</ParamField>
+
+<ParamField body="products[].name" type="string">
+  Product name.
+</ParamField>
+
+<ParamField body="products[].quantity" type="number">
+  Product quantity.
+</ParamField>
+
+<ParamField body="products[].price" type="number">
+  Product unit price in BRL.
+</ParamField>
+
+<ParamField body="products[].physical" type="boolean">
+  Indicates whether the product is physical.
+</ParamField>
+
+<ParamField body="shippingFee" type="number">
+  Shipping fee in BRL.
+</ParamField>
+
+<ParamField body="extraFee" type="number">
+  Additional fee in BRL.
+</ParamField>
+
+<ParamField body="discount" type="number">
+  Discount amount in BRL.
+</ParamField>
+
+<ParamField body="splits" type="array">
+  Payment split configuration.
+</ParamField>
+
+<ParamField body="splits[].producerId" type="string">
+  Producer ID that will receive the split amount.
+</ParamField>
+
+<ParamField body="splits[].amount" type="number">
+  Amount sent to the split receiver, in BRL.
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Free-form metadata associated with the transaction.
+</ParamField>
+
 <ParamField body="callbackUrl" type="string">
   URL that will receive payment status webhook notifications.
 </ParamField>

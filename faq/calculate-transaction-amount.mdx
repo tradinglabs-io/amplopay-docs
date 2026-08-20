@@ -3,23 +3,51 @@ title: "Calculate transaction amount"
 description: "How to calculate the amount sent to the API"
 ---
 
-The transaction amount must represent the total charged to the customer.
+## Our structure
 
-```text
-amount = sum of products + shippingFee + extraFee - discount
+In this API, the total transaction value, sent in the `amount` field, is composed of the following parts:
+
+- `shippingFee`: transaction shipping fee, in BRL.
+- `extraFee`: other fees, such as installment fees, in BRL.
+- `discount`: transaction discount, in BRL.
+- `products[n].price`: product price, in BRL.
+- `products[n].quantity`: product quantity.
+
+## How to calculate
+
+To correctly calculate the total order amount, sum each product price multiplied by its quantity, add shipping, add extra fees, and subtract the discount.
+
+```ts
+// Product list
+const products = [
+  { price: 10, quantity: 2 },
+  { price: 20, quantity: 1 }
+]
+
+// Shipping fee
+const shippingFee = 5
+
+// Installment or additional fee
+const extraFee = 20
+
+// Discount
+const discount = 5
+
+// Total product amount
+const totalProducts = products.reduce((acc, product) => {
+  return acc + product.price * product.quantity
+}, 0)
+// Product sum = 40
+
+// Total sale amount paid by the customer.
+// This is the value you must send in the amount field.
+const amount = totalProducts + shippingFee + extraFee - discount
+
+// Final result: BRL 60.00
 ```
 
-Example:
+## Formula
 
-```json
-{
-  "products": [
-    { "name": "Produto 1", "quantity": 1, "price": 80 },
-    { "name": "Produto 2", "quantity": 2, "price": 10 }
-  ],
-  "shippingFee": 15,
-  "extraFee": 5,
-  "discount": 10,
-  "amount": 110
-}
+```text
+amount = sum(products[n].price * products[n].quantity) + shippingFee + extraFee - discount
 ```

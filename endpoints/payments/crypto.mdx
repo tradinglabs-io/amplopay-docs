@@ -32,8 +32,48 @@ Creates a cryptocurrency charge.
   Customer information.
 </ParamField>
 
+<ParamField body="client.name" type="string" required>
+  Customer full name.
+</ParamField>
+
+<ParamField body="client.email" type="string" required>
+  Customer email address.
+</ParamField>
+
+<ParamField body="client.phone" type="string" required>
+  Customer phone number.
+</ParamField>
+
+<ParamField body="client.document" type="string" required>
+  Customer document, such as CPF or CNPJ for Brazilian customers.
+</ParamField>
+
 <ParamField body="callbackUrl" type="string">
   URL that will receive payment status webhook notifications.
+</ParamField>
+
+<ParamField body="products" type="array">
+  Products included in the transaction.
+</ParamField>
+
+<ParamField body="products[].id" type="string">
+  Product identifier in your application.
+</ParamField>
+
+<ParamField body="products[].name" type="string">
+  Product name.
+</ParamField>
+
+<ParamField body="products[].quantity" type="number">
+  Product quantity.
+</ParamField>
+
+<ParamField body="products[].price" type="number">
+  Product unit price.
+</ParamField>
+
+<ParamField body="metadata" type="object">
+  Free-form metadata associated with the transaction.
 </ParamField>
 
 ## Request example

@@ -22,3 +22,115 @@ curl --request GET \
 ```
 
 </RequestExample>
+
+## Response
+
+<ResponseField name="name" type="string" required>
+  Producer name.
+</ResponseField>
+
+<ResponseField name="email" type="string" required>
+  Producer email address.
+</ResponseField>
+
+<ResponseField name="phone" type="string" required>
+  Producer phone number, formatted as `(99) 99999-9999`.
+</ResponseField>
+
+<ResponseField name="document" type="string">
+  Producer document. It can be CPF or CNPJ, formatted with punctuation. This field is not returned when the producer has not completed KYC.
+</ResponseField>
+
+<ResponseField name="address" type="object">
+  Producer or company address. If the producer has not completed KYC, this field is not returned.
+</ResponseField>
+
+<ResponseField name="address.zipCode" type="string">
+  ZIP code, formatted with a hyphen.
+</ResponseField>
+
+<ResponseField name="address.country" type="string">
+  Country in ISO 3166-1 format.
+</ResponseField>
+
+<ResponseField name="address.state" type="string">
+  State in ISO 3166-2:BR format.
+</ResponseField>
+
+<ResponseField name="address.city" type="string">
+  City.
+</ResponseField>
+
+<ResponseField name="address.neighborhood" type="string">
+  Neighborhood.
+</ResponseField>
+
+<ResponseField name="address.street" type="string">
+  Street.
+</ResponseField>
+
+<ResponseField name="address.number" type="string">
+  Address number.
+</ResponseField>
+
+<ResponseField name="address.complement" type="string">
+  Address complement.
+</ResponseField>
+
+<ResponseField name="legalRepresentative" type="object">
+  Company legal representative information. Returned only for producers registered with a CNPJ document.
+</ResponseField>
+
+<ResponseField name="legalRepresentative.name" type="string">
+  Company legal representative name.
+</ResponseField>
+
+<ResponseField name="legalRepresentative.phone" type="string">
+  Company legal representative phone number.
+</ResponseField>
+
+<ResponseField name="legalRepresentative.document" type="string">
+  Company legal representative document.
+</ResponseField>
+
+<ResponseField name="legalRepresentative.address" type="object">
+  Company legal representative address.
+</ResponseField>
+
+<ResponseExample>
+
+```json
+{
+  "name": "John Doe",
+  "email": "john@mail.com",
+  "phone": "(11) 99999-9999",
+  "document": "12.345.678/0001-00",
+  "address": {
+    "zipCode": "12345-000",
+    "country": "BR",
+    "state": "SP",
+    "city": "São Paulo",
+    "neighborhood": "Alphaville",
+    "street": "Rua dos Frades",
+    "number": "33A",
+    "complement": "Sala 2"
+  },
+  "legalRepresentative": {
+    "name": "Maria Doe",
+    "phone": "(11) 95555-5555",
+    "document": "123.456.789-00",
+    "address": {
+      "zipCode": "45678-000",
+      "country": "BR",
+      "state": "SP",
+      "city": "São Paulo",
+      "neighborhood": "Jardim Paulista",
+      "street": "Rua dos Bobos",
+      "number": "0",
+      "complement": "Casa"
+    }
+  }
+}
+```
+
+</ResponseExample>

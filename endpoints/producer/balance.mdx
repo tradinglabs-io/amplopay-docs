@@ -22,3 +22,29 @@ curl --request GET \
 ```
 
 </RequestExample>
+
+## Response
+
+<ResponseField name="available" type="number" required>
+  Balance available for withdrawal.
+</ResponseField>
+
+<ResponseField name="pending" type="number" required>
+  Pending balance.
+</ResponseField>
+
+<ResponseField name="fundLock" type="number" required>
+  Locked balance.
+</ResponseField>
+
+<ResponseExample>
+
+```json
+{
+  "available": 12345.67,
+  "pending": 999.99,
+  "fundLock": 0
+}
+```
+
+</ResponseExample>
