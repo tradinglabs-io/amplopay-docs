@@ -42,7 +42,7 @@ Creates a cryptocurrency charge.
 
 ```bash
 curl --request POST \
-  --url {API_BASE_URL}/gateway/crypto/receive \
+  --url https://app.amplopay.com/api/v1/gateway/crypto/receive \
   --header 'Content-Type: application/json' \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
@@ -58,7 +58,7 @@ curl --request POST \
       "phone": "(11) 99999-9999",
       "document": "123.456.789-00"
     },
-    "callbackUrl": "https://minha-api.com/webhooks/payment"
+    "callbackUrl": "https://example.com/webhooks/payment"
   }'
 ```
 
@@ -79,7 +79,7 @@ curl --request POST \
     "phone": "(11) 99999-9999",
     "document": "123.456.789-00"
   },
-  "callbackUrl": "https://minha-api.com/webhooks/payment"
+  "callbackUrl": "https://example.com/webhooks/payment"
 }
 ```
 
@@ -109,7 +109,7 @@ curl --request POST \
   "status": "PENDING",
   "order": {
     "id": "order_id",
-    "url": "https://api-de-pagamentos.com/order/order_id"
+    "url": "https://app.amplopay.com/order/order_id"
   },
   "crypto": {
     "address": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXX",

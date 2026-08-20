@@ -58,13 +58,13 @@ Creates a transfer or withdrawal via Pix.
 
 ```bash
 curl --request POST \
-  --url {API_BASE_URL}/gateway/transfers \
+  --url https://app.amplopay.com/api/v1/gateway/transfers \
   --header 'Content-Type: application/json' \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
   --data '{
     "identifier": "identifier123",
-    "callbackUrl": "https://example.com/callback",
+    "callbackUrl": "https://example.com/webhooks/transfer",
     "amount": 1000,
     "discountFeeOfReceiver": false,
     "pix": {
@@ -89,7 +89,7 @@ curl --request POST \
 ```json
 {
   "identifier": "identifier123",
-  "callbackUrl": "https://example.com/callback",
+  "callbackUrl": "https://example.com/webhooks/transfer",
   "amount": 1000,
   "discountFeeOfReceiver": false,
   "pix": {

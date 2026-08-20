@@ -26,7 +26,7 @@ Do not use this endpoint for frequent polling. Configure webhooks to receive rea
 
 ```bash
 curl --request GET \
-  --url '{API_BASE_URL}/gateway/transactions?clientIdentifier=5286-412312-asd-123' \
+  --url 'https://app.amplopay.com/api/v1/gateway/transactions?clientIdentifier=5286-412312-asd-123' \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
 ```

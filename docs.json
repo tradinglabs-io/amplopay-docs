@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "AmploPay",
   "colors": {
-    "primary": "#e4b211",
+    "primary": "#8f6f00",
     "light": "#e4b211",
-    "dark": "#e4b211"
+    "dark": "#8f6f00"
   },
   "favicon": {
     "light": "/images/icon.png",

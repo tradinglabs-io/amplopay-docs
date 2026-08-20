@@ -40,7 +40,7 @@ This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company sett
 
 ```bash
 curl --request POST \
-  --url {API_BASE_URL}/gateway/checkout \
+  --url https://app.amplopay.com/api/v1/gateway/checkout \
   --header 'Content-Type: application/json' \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
@@ -50,16 +50,16 @@ curl --request POST \
       "name": "Curso de marketing",
       "description": "Produto de exemplo",
       "price": 197,
-      "imageUrl": "https://minha-api.com/produto.png"
+      "imageUrl": "https://example.com/produto.png"
     },
     "offer": {
       "code": "OFERTA10",
       "price": 197,
       "currency": "BRL"
     },
-    "successUrl": "https://minha-api.com/sucesso",
-    "cancelUrl": "https://minha-api.com/cancelado",
-    "callbackUrl": "https://minha-api.com/webhooks/payment"
+    "successUrl": "https://example.com/sucesso",
+    "cancelUrl": "https://example.com/cancelado",
+    "callbackUrl": "https://example.com/webhooks/payment"
   }'
 ```
 
@@ -74,15 +74,15 @@ curl --request POST \
     "name": "Curso de marketing",
     "description": "Produto de exemplo",
     "price": 197,
-    "imageUrl": "https://minha-api.com/produto.png"
+    "imageUrl": "https://example.com/produto.png"
   },
   "offer": {
     "code": "OFERTA10",
     "price": 197,
     "currency": "BRL"
   },
-  "successUrl": "https://minha-api.com/sucesso",
-  "cancelUrl": "https://minha-api.com/cancelado",
-  "callbackUrl": "https://minha-api.com/webhooks/payment"
+  "successUrl": "https://example.com/sucesso",
+  "cancelUrl": "https://example.com/cancelado",
+  "callbackUrl": "https://example.com/webhooks/payment"
 }
 ```

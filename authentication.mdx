@@ -3,13 +3,13 @@ title: "Authentication"
 description: "How to authenticate requests to the Gateway API"
 ---
 
-Authentication is required to access protected endpoints in the `{settings.title}` API.
+Authentication is required to access protected endpoints in the AmploPay API.
 
 ## Getting credentials
 
 To use the API, you need a public key and a private key. These credentials can be generated in your account dashboard.
 
-1. Access the `{settings.title}` dashboard.
+1. Access the AmploPay dashboard.
 2. Go to the API section in the integrations area.
 3. Click `Generate credentials`.
 4. Store the keys in a secure location. The private key will not be displayed again.
@@ -30,7 +30,7 @@ The example below is illustrative only. It shows how to send the headers, but it
 </Warning>
 
 ```js
-await axios.get("{API_BASE_URL}", {
+await axios.get("https://app.amplopay.com/api/v1", {
   headers: {
     "x-public-key": "SUA_CHAVE_PUBLICA_AQUI",
     "x-secret-key": "SUA_CHAVE_PRIVADA_AQUI"
@@ -49,4 +49,4 @@ await axios.get("{API_BASE_URL}", {
 
 ## Support
 
-If you have questions about credentials or authentication, contact us at `{settings.supportEmail}`.
+If you have questions about credentials or authentication, contact the AmploPay support team through your dashboard.

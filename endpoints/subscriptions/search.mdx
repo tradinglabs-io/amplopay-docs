@@ -30,7 +30,7 @@ Avoid frequent polling. Use webhooks to track updates whenever possible.
 
 ```bash
 curl --request GET \
-  --url '{API_BASE_URL}/gateway/subscriptions?identifier=assinatura-123' \
+  --url 'https://app.amplopay.com/api/v1/gateway/subscriptions?identifier=assinatura-123' \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
 ```
