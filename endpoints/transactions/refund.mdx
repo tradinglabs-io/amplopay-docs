@@ -12,8 +12,12 @@ Requests a refund for a transaction owned by the authenticated producer.
   ID of the transaction to refund.
 </ParamField>
 
-<ParamField body="reason" type="string">
+<ParamField body="reason" type="string" required>
   Reason for the refund request.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Optional description with additional details.
 </ParamField>
 
 ## Request example
@@ -27,9 +31,72 @@ curl --request POST \
   --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
   --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
   --data '{
-    "transactionId": "transaction_id",
-    "reason": "Requested by the customer"
+    "transactionId": "cmry2h8332sgs3ub44fh7",
+    "reason": "Cliente solicitou cancelamento",
+    "description": "Solicitacao recebida pelo atendimento."
   }'
 ```
 
 </RequestExample>
+
+## Response
+
+<ResponseField name="id" type="string" required>
+  Created refund request ID.
+</ResponseField>
+
+<ResponseField name="transactionId" type="string" required>
+  Transaction ID linked to the refund.
+</ResponseField>
+
+<ResponseField name="producerId" type="string" required>
+  ID of the producer that owns the transaction.
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Current refund request status.
+</ResponseField>
+
+<ResponseField name="amount" type="number" required>
+  Requested refund amount.
+</ResponseField>
+
+<ResponseField name="reason" type="string" required>
+  Reason provided in the request.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Additional description provided in the request.
+</ResponseField>
+
+<ResponseExample>
+
+```json
+{
+  "id": "cmrefund123",
+  "transactionId": "cmry2h8332sgs3ub44fh7",
+  "producerId": "cmproducer123",
+  "status": "PENDING",
+  "amount": 49.8,
+  "reason": "Cliente solicitou cancelamento",
+  "description": "Solicitacao recebida pelo atendimento."
+}
+```
+
+</ResponseExample>
+
+## Error responses
+
+This endpoint can return `400 Bad Request`, `401 Unauthorized`, `404 Not Found`, and `422 Unprocessable Entity` with the default API error shape.
+
+<ResponseExample>
+
+```json
+{
+  "statusCode": 422,
+  "errorCode": "GATEWAY_INVALID_ARGUMENT",
+  "message": "Ja existe uma solicitacao de reembolso para esta transacao"
+}
+```
+
+</ResponseExample>

@@ -4,85 +4,160 @@ description: "Create checkout through the API"
 api: "POST /gateway/checkout"
 ---
 
-## Create checkout
-
-Creates a product, offer, and checkout link through the API.
+Creates a checkout URL for a product and offer.
 
 <Info>
-This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company setting that allows checkout creation through the API.
+    This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company setting that allows checkout creation
+    through the API.
 </Info>
 
 ## Body parameters
 
 <ParamField body="product" type="object" required>
-  Product that will be sold through the checkout.
+    Product details.
 </ParamField>
 
-<ParamField body="offer" type="object" required>
-  Offer configuration for the checkout.
+<ParamField body="product.externalId" type="string" required>
+    Product ID in the external platform.
 </ParamField>
 
-<ParamField body="successUrl" type="string">
-  URL where the customer is redirected after a successful checkout.
+<ParamField body="product.name" type="string" required>
+    Product name.
 </ParamField>
 
-<ParamField body="cancelUrl" type="string">
-  URL where the customer is redirected after canceling the checkout.
+<ParamField body="product.photos" type="string[]">
+    Product photo URLs.
 </ParamField>
 
-<ParamField body="callbackUrl" type="string">
-  URL that will receive checkout/payment webhook notifications.
+<ParamField body="product.offer" type="object" required>
+    Offer details.
+</ParamField>
+
+<ParamField body="product.offer.name" type="string" required>
+    Offer name.
+</ParamField>
+
+<ParamField body="product.offer.price" type="number" required>
+    Offer price.
+</ParamField>
+
+<ParamField body="product.offer.offerType" type="string" required>
+    Offer type.
+</ParamField>
+
+<ParamField body="product.offer.currency" type="string" required>
+    Accepted currency, such as `BRL`, `USD`, or `all`.
+</ParamField>
+
+<ParamField body="product.offer.lang" type="string" required>
+    Language/locale, such as `pt-BR`, or `all`.
+</ParamField>
+
+<ParamField body="settings" type="object">
+    Optional checkout settings.
+</ParamField>
+
+<ParamField body="settings.paymentMethods" type="string[]">
+    Accepted payment methods. Defaults to all methods.
+</ParamField>
+
+<ParamField body="settings.acceptedDocs" type="string[]">
+    Accepted documents. Defaults to CPF.
+</ParamField>
+
+<ParamField body="settings.thankYouPage" type="string">
+    Post-purchase redirect URL.
+</ParamField>
+
+<ParamField body="settings.askForAddress" type="boolean">
+    Whether checkout should ask for customer address. Defaults to `false`.
+</ParamField>
+
+<ParamField body="settings.colors" type="object">
+    Checkout colors in hex format.
+</ParamField>
+
+<ParamField body="customer" type="object">
+    Customer data used to prefill checkout fields.
+</ParamField>
+
+<ParamField body="customer.name" type="string">
+    Customer name.
+</ParamField>
+
+<ParamField body="customer.email" type="string">
+    Customer email.
+</ParamField>
+
+<ParamField body="customer.phone" type="string">
+    Customer phone.
+</ParamField>
+
+<ParamField body="customer.document" type="string">
+    Customer document.
+</ParamField>
+
+<ParamField body="customer.address" type="object">
+    Customer address used to prefill checkout fields.
 </ParamField>
 
 ## Request example
 
 <RequestExample>
 
-```bash
-curl --request POST \
-  --url https://app.amplopay.com/api/v1/gateway/checkout \
-  --header 'Content-Type: application/json' \
-  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
-  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
-  --data '{
+    ```bash
+    curl --request POST \
+    --url https://app.amplopay.com/api/v1/gateway/checkout \
+    --header 'Content-Type: application/json' \
+    --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+    --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+    --data '{
     "product": {
-      "id": "produto-123",
-      "name": "Curso de marketing",
-      "description": "Produto de exemplo",
-      "price": 197,
-      "imageUrl": "https://example.com/produto.png"
-    },
+    "name": "Produto de Teste",
+    "externalId": "A-10",
+    "photos": ["https://example.com/image.jpg"],
     "offer": {
-      "code": "OFERTA10",
-      "price": 197,
-      "currency": "BRL"
-    },
-    "successUrl": "https://example.com/sucesso",
-    "cancelUrl": "https://example.com/cancelado",
-    "callbackUrl": "https://example.com/webhooks/payment"
-  }'
-```
+    "name": "Oferta Padrão",
+    "price": 40000,
+    "offerType": "NATIONAL",
+    "currency": "all",
+    "lang": "pt-BR"
+}
+},
+    "settings": {
+    "paymentMethods": ["BOLETO", "PIX", "CREDIT_CARD"],
+    "acceptedDocs": ["CPF"],
+    "thankYouPage": "",
+    "askForAddress": false
+},
+    "customer": {
+    "name": "Joao dos santos",
+    "email": "joao@gmail.com",
+    "phone": "7399999-9999",
+    "document": "098.232.664-43"
+}
+}'
+    ```
 
 </RequestExample>
 
-## Payload example
+## Response
 
-```json
-{
-  "product": {
-    "id": "produto-123",
-    "name": "Curso de marketing",
-    "description": "Produto de exemplo",
-    "price": 197,
-    "imageUrl": "https://example.com/produto.png"
-  },
-  "offer": {
-    "code": "OFERTA10",
-    "price": 197,
-    "currency": "BRL"
-  },
-  "successUrl": "https://example.com/sucesso",
-  "cancelUrl": "https://example.com/cancelado",
-  "callbackUrl": "https://example.com/webhooks/payment"
-}
-```
+<ResponseField name="success" type="boolean" required>
+    Indicates whether the checkout was created successfully.
+</ResponseField>
+
+<ResponseField name="checkoutUrl" type="string" required>
+    URL used to redirect the customer to checkout.
+</ResponseField>
+
+<ResponseExample>
+
+    ```json
+    {
+        "success": true,
+        "checkoutUrl": "https://apidaminhagateway.com.br/checkout/cmar9fp6700176uvcmjh6gjkd?offer=4a222a1f"
+    }
+    ```
+
+</ResponseExample>

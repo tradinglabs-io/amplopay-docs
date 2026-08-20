@@ -1,0 +1,98 @@
+---
+title: "AI integration"
+description: "How to use AI tools to integrate with the API"
+---
+
+This page contains information optimized to help you integrate with the `{settings.title}` API using AI tools such as Claude, ChatGPT, Cursor, Lovable, Bolt, and others.
+
+## What is this?
+
+AI tools can help you build API integrations faster and more efficiently. By copying endpoint instructions formatted for AI, you can use prompts that contain the information needed to generate functional code.
+
+## How to use
+
+On each endpoint page, use the API reference information to provide your AI tool with:
+
+- Method and endpoint URL.
+- Authentication headers: `x-public-key` and `x-secret-key`.
+- Body fields, query parameters, types, required fields, and descriptions.
+- Success and error responses.
+- JSON request and response examples.
+
+## Step by step
+
+1. Navigate to the endpoint you want to integrate, such as Create Pix charge or Create boleto charge.
+2. Copy the endpoint documentation, including request fields and examples.
+3. Paste it into your preferred AI tool, such as Claude, ChatGPT, Cursor, Lovable, or Bolt.
+4. Add project-specific context, such as language, framework, HTTP client, and validation requirements.
+
+## Claude example
+
+```markdown
+[Paste the endpoint instructions here]
+
+Project context:
+- Language: TypeScript
+- Framework: Next.js 14
+- HTTP library: Axios
+
+Please create a function to integrate with this endpoint, including:
+1. Complete data types
+2. Error handling
+3. Required field validation
+```
+
+## ChatGPT example
+
+```markdown
+[Paste the endpoint instructions here]
+
+Create an integration with this endpoint in Python using the requests library.
+Include error handling and logging.
+```
+
+## Cursor, Lovable, and Bolt example
+
+```markdown
+[Paste the endpoint instructions here]
+
+Integrate this payment endpoint into my project.
+Use best practices and the existing project patterns.
+```
+
+## Tips for better results
+
+- Be specific about your stack, including language, frameworks, and libraries.
+- Ask for proper error handling for API error codes.
+- If you use TypeScript, ask the AI to generate types for requests and responses.
+- Review and test generated code before using it in production.
+
+## API credentials
+
+You need valid credentials to use the API. Never share real credentials with AI tools. Use placeholders such as `SUA_CHAVE_PUBLICA` and `SUA_CHAVE_SECRETA`, then replace them after generating the code.
+
+## Base URL
+
+Use the following base URL for all requests:
+
+```text
+{API_BASE_URL}
+```
+
+## FAQ
+
+### Do the instructions work with any AI?
+
+Yes. The instructions are structured Markdown and work with any AI tool that accepts text input, including Claude, ChatGPT, Gemini, Copilot, Cursor, Lovable, and Bolt.
+
+### Do I need to copy the instructions every time?
+
+If you are working on multiple integrations, copy each endpoint separately. For the same endpoint, you can reuse the copied instructions while the API documentation has not changed.
+
+### Does AI always generate correct code?
+
+No. AI tools are useful for speeding up development, but generated code must always be reviewed and tested. Check credentials, required fields, validation, and error handling.
+
+### Can I use generated code in production?
+
+Yes, after reviewing, testing, and adapting it to your project's security and quality standards.

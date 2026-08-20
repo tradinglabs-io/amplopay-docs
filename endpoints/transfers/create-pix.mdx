@@ -24,7 +24,7 @@ Creates a transfer or withdrawal via Pix.
   Receiver Pix key data.
 </ParamField>
 
-<ParamField body="pix.type" type="string" required>
+<ParamField body="pix.type" type="enum" required>
   Pix key type. Supported values include `cpf`, `cnpj`, `email`, `phone`, and `random`.
 </ParamField>
 
@@ -46,6 +46,14 @@ Creates a transfer or withdrawal via Pix.
 
 <ParamField body="owner.document" type="object" required>
   Account owner's document.
+</ParamField>
+
+<ParamField body="owner.document.type" type="enum" required>
+  Document type. Supported values include `cpf` and `cnpj`.
+</ParamField>
+
+<ParamField body="owner.document.number" type="string" required>
+  Document number.
 </ParamField>
 
 <ParamField body="callbackUrl" type="string" required>

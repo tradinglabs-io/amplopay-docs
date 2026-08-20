@@ -40,11 +40,11 @@ Creates a Pix charge.
   Products included in the transaction.
 </ParamField>
 
-<ParamField body="products[].id" type="string">
+<ParamField body="products[].id" type="string" required>
   Product identifier in your application.
 </ParamField>
 
-<ParamField body="products[].name" type="string">
+<ParamField body="products[].name" type="string" required>
   Product name.
 </ParamField>
 
@@ -52,7 +52,7 @@ Creates a Pix charge.
   Product quantity.
 </ParamField>
 
-<ParamField body="products[].price" type="number">
+<ParamField body="products[].price" type="number" required>
   Product unit price in BRL.
 </ParamField>
 
@@ -76,16 +76,20 @@ Creates a Pix charge.
   Payment split configuration.
 </ParamField>
 
-<ParamField body="splits[].producerId" type="string">
+<ParamField body="splits[].producerId" type="string" required>
   Producer ID that will receive the split amount.
 </ParamField>
 
-<ParamField body="splits[].amount" type="number">
+<ParamField body="splits[].amount" type="number" required>
   Amount sent to the split receiver, in BRL.
 </ParamField>
 
 <ParamField body="metadata" type="object">
   Free-form metadata associated with the transaction.
+</ParamField>
+
+<ParamField body="dueDate" type="string">
+  Charge due date in `YYYY-MM-DD` format.
 </ParamField>
 
 <ParamField body="callbackUrl" type="string">
@@ -159,6 +163,10 @@ curl --request POST \
   Initial transaction status.
 </ResponseField>
 
+<ResponseField name="fee" type="number" required>
+  Transaction fee amount.
+</ResponseField>
+
 <ResponseField name="order" type="object" required>
   Order information and hosted order URL.
 </ResponseField>
@@ -173,6 +181,7 @@ curl --request POST \
 {
   "transactionId": "clwuwmn4i0007emp9lgn66u1h",
   "status": "OK",
+  "fee": 2.5,
   "order": {
     "id": "cm92389asdaskdjkasjdka",
     "url": "https://app.amplopay.com/order/cm92389asdaskdjkasjdka",

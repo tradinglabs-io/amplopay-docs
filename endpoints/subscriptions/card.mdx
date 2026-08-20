@@ -20,8 +20,48 @@ Creates a card subscription.
   Customer information.
 </ParamField>
 
+<ParamField body="client.name" type="string" required>
+  Customer full name.
+</ParamField>
+
+<ParamField body="client.email" type="string" required>
+  Customer email address.
+</ParamField>
+
+<ParamField body="client.phone" type="string" required>
+  Customer phone number.
+</ParamField>
+
+<ParamField body="client.document" type="string" required>
+  Customer document.
+</ParamField>
+
+<ParamField body="clientIp" type="string" required>
+  IPv4 of the customer performing the subscription transaction.
+</ParamField>
+
 <ParamField body="card" type="object" required>
   Card data used for recurring charges.
+</ParamField>
+
+<ParamField body="card.number" type="string" required>
+  Card number.
+</ParamField>
+
+<ParamField body="card.owner" type="string" required>
+  Cardholder name.
+</ParamField>
+
+<ParamField body="card.expiresAt" type="string" required>
+  Card expiration date in `YYYY-MM` format.
+</ParamField>
+
+<ParamField body="card.cvv" type="string" required>
+  Card security code.
+</ParamField>
+
+<ParamField body="card.statementDescriptor" type="string">
+  Statement descriptor displayed on the card charge.
 </ParamField>
 
 <ParamField body="product" type="object" required>
@@ -55,12 +95,13 @@ curl --request POST \
       "phone": "(11) 99999-9999",
       "document": "123.456.789-00"
     },
+    "clientIp": "127.0.0.1",
     "card": {
-      "holderName": "JOAO DA SILVA",
       "number": "4111111111111111",
-      "expirationMonth": "12",
-      "expirationYear": "2030",
-      "cvv": "123"
+      "owner": "JOAO DA SILVA",
+      "expiresAt": "2030-12",
+      "cvv": "123",
+      "statementDescriptor": "MINHA LOJA"
     },
     "product": {
       "id": "plano-mensal",
@@ -90,12 +131,13 @@ curl --request POST \
     "phone": "(11) 99999-9999",
     "document": "123.456.789-00"
   },
+  "clientIp": "127.0.0.1",
   "card": {
-    "holderName": "JOAO DA SILVA",
     "number": "4111111111111111",
-    "expirationMonth": "12",
-    "expirationYear": "2030",
-    "cvv": "123"
+    "owner": "JOAO DA SILVA",
+    "expiresAt": "2030-12",
+    "cvv": "123",
+    "statementDescriptor": "MINHA LOJA"
   },
   "product": {
     "id": "plano-mensal",

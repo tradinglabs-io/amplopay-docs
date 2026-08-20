@@ -28,6 +28,7 @@
             "pages": [
               "introduction",
               "authentication",
+              "llms",
               "errors",
               "enums"
             ]

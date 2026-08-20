@@ -56,11 +56,11 @@ Creates a cryptocurrency charge.
   Products included in the transaction.
 </ParamField>
 
-<ParamField body="products[].id" type="string">
+<ParamField body="products[].id" type="string" required>
   Product identifier in your application.
 </ParamField>
 
-<ParamField body="products[].name" type="string">
+<ParamField body="products[].name" type="string" required>
   Product name.
 </ParamField>
 
@@ -68,7 +68,7 @@ Creates a cryptocurrency charge.
   Product quantity.
 </ParamField>
 
-<ParamField body="products[].price" type="number">
+<ParamField body="products[].price" type="number" required>
   Product unit price.
 </ParamField>
 
@@ -133,6 +133,10 @@ curl --request POST \
   Initial transaction status.
 </ResponseField>
 
+<ResponseField name="fee" type="number" required>
+  Transaction fee amount.
+</ResponseField>
+
 <ResponseField name="order" type="object" required>
   Order information and hosted order URL.
 </ResponseField>
@@ -147,6 +151,7 @@ curl --request POST \
 {
   "transactionId": "transaction_id",
   "status": "PENDING",
+  "fee": 2.5,
   "order": {
     "id": "order_id",
     "url": "https://app.amplopay.com/order/order_id"

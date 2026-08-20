@@ -20,6 +20,10 @@ Processes a card payment.
   Number of card installments.
 </ParamField>
 
+<ParamField body="clientIp" type="string" required>
+  IPv4 of the customer performing the transaction.
+</ParamField>
+
 <ParamField body="client" type="object" required>
   Customer information, including address when required by the card processor.
 </ParamField>
@@ -40,35 +44,35 @@ Processes a card payment.
   Customer document, such as CPF or CNPJ for Brazilian customers.
 </ParamField>
 
-<ParamField body="client.address" type="object">
+<ParamField body="client.address" type="object" required>
   Customer billing address.
 </ParamField>
 
-<ParamField body="client.address.country" type="string">
+<ParamField body="client.address.country" type="string" required>
   Customer country code, such as `BR`.
 </ParamField>
 
-<ParamField body="client.address.zipCode" type="string">
+<ParamField body="client.address.zipCode" type="string" required>
   Customer ZIP code.
 </ParamField>
 
-<ParamField body="client.address.state" type="string">
+<ParamField body="client.address.state" type="string" required>
   Customer state code, such as `SP`.
 </ParamField>
 
-<ParamField body="client.address.city" type="string">
+<ParamField body="client.address.city" type="string" required>
   Customer city.
 </ParamField>
 
-<ParamField body="client.address.street" type="string">
+<ParamField body="client.address.street" type="string" required>
   Customer street.
 </ParamField>
 
-<ParamField body="client.address.neighborhood" type="string">
+<ParamField body="client.address.neighborhood" type="string" required>
   Customer neighborhood.
 </ParamField>
 
-<ParamField body="client.address.number" type="string">
+<ParamField body="client.address.number" type="string" required>
   Customer address number.
 </ParamField>
 
@@ -80,24 +84,24 @@ Processes a card payment.
   Card data used to process the payment.
 </ParamField>
 
-<ParamField body="card.holderName" type="string" required>
-  Cardholder name as printed on the card.
+<ParamField body="card.owner" type="string" required>
+  Cardholder name.
 </ParamField>
 
 <ParamField body="card.number" type="string" required>
   Card number.
 </ParamField>
 
-<ParamField body="card.expirationMonth" type="string" required>
-  Card expiration month.
-</ParamField>
-
-<ParamField body="card.expirationYear" type="string" required>
-  Card expiration year.
+<ParamField body="card.expiresAt" type="string" required>
+  Card expiration date in `YYYY-MM` format.
 </ParamField>
 
 <ParamField body="card.cvv" type="string" required>
   Card security code.
+</ParamField>
+
+<ParamField body="card.statementDescriptor" type="string">
+  Statement descriptor displayed on the card charge.
 </ParamField>
 
 <ParamField body="callbackUrl" type="string">
@@ -108,11 +112,11 @@ Processes a card payment.
   Products included in the transaction.
 </ParamField>
 
-<ParamField body="products[].id" type="string">
+<ParamField body="products[].id" type="string" required>
   Product identifier in your application.
 </ParamField>
 
-<ParamField body="products[].name" type="string">
+<ParamField body="products[].name" type="string" required>
   Product name.
 </ParamField>
 
@@ -120,7 +124,7 @@ Processes a card payment.
   Product quantity.
 </ParamField>
 
-<ParamField body="products[].price" type="number">
+<ParamField body="products[].price" type="number" required>
   Product unit price in BRL.
 </ParamField>
 
@@ -138,6 +142,14 @@ Processes a card payment.
 
 <ParamField body="splits" type="array">
   Payment split configuration.
+</ParamField>
+
+<ParamField body="splits[].producerId" type="string" required>
+  Producer ID that will receive the split amount.
+</ParamField>
+
+<ParamField body="splits[].amount" type="number" required>
+  Amount sent to the split receiver, in BRL.
 </ParamField>
 
 <ParamField body="metadata" type="object">
@@ -164,12 +176,13 @@ curl --request POST \
       "phone": "(11) 99999-9999",
       "document": "123.456.789-00"
     },
+    "clientIp": "127.0.0.1",
     "card": {
-      "holderName": "JOAO DA SILVA",
       "number": "4111111111111111",
-      "expirationMonth": "12",
-      "expirationYear": "2030",
-      "cvv": "123"
+      "owner": "JOAO DA SILVA",
+      "expiresAt": "2030-12",
+      "cvv": "123",
+      "statementDescriptor": "MINHA LOJA"
     },
     "callbackUrl": "https://example.com/webhooks/payment"
   }'
@@ -200,12 +213,13 @@ curl --request POST \
       "complement": "6 andar"
     }
   },
+  "clientIp": "127.0.0.1",
   "card": {
-    "holderName": "JOAO DA SILVA",
     "number": "4111111111111111",
-    "expirationMonth": "12",
-    "expirationYear": "2030",
-    "cvv": "123"
+    "owner": "JOAO DA SILVA",
+    "expiresAt": "2030-12",
+    "cvv": "123",
+    "statementDescriptor": "MINHA LOJA"
   },
   "callbackUrl": "https://example.com/webhooks/payment"
 }
@@ -221,7 +235,7 @@ curl --request POST \
   Initial transaction status.
 </ResponseField>
 
-<ResponseField name="fee" type="number">
+<ResponseField name="fee" type="number" required>
   Transaction fee amount.
 </ResponseField>
 

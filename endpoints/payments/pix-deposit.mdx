@@ -8,7 +8,7 @@ Creates a Pix deposit.
 
 ## Body parameters
 
-<ParamField body="identifier" type="string" required>
+<ParamField body="identifier" type="string">
   Unique identifier for this deposit in your application.
 </ParamField>
 
@@ -18,10 +18,6 @@ Creates a Pix deposit.
 
 <ParamField body="callbackUrl" type="string">
   URL that will receive deposit status webhook notifications.
-</ParamField>
-
-<ParamField body="metadata" type="object">
-  Free-form metadata associated with the deposit.
 </ParamField>
 
 ## Request example
@@ -53,8 +49,36 @@ curl --request POST \
   Initial deposit status.
 </ResponseField>
 
+<ResponseField name="order" type="object" required>
+  Order information.
+</ResponseField>
+
+<ResponseField name="order.id" type="string" required>
+  Internal order ID.
+</ResponseField>
+
+<ResponseField name="order.url" type="string">
+  Internal checkout order URL.
+</ResponseField>
+
 <ResponseField name="pix" type="object" required>
   Pix deposit information.
+</ResponseField>
+
+<ResponseField name="pix.code" type="string" required>
+  Pix copy-and-paste code.
+</ResponseField>
+
+<ResponseField name="pix.image" type="string">
+  QR Code image URL.
+</ResponseField>
+
+<ResponseField name="pix.expiresAt" type="string">
+  Pix QR Code expiration date and time.
+</ResponseField>
+
+<ResponseField name="pix.base64" type="string">
+  Deprecated. Always returns an empty string for backward compatibility.
 </ResponseField>
 
 <ResponseExample>
@@ -62,10 +86,15 @@ curl --request POST \
 ```json
 {
   "transactionId": "transaction_id",
-  "status": "PENDING",
+  "status": "OK",
+  "order": {
+    "id": "cm92389asdaskdjkasjdka",
+    "url": "https://api-de-pagamentos.com/order/cm92389asdaskdjkasjdka"
+  },
   "pix": {
     "code": "00020101021126530014BR.GOV.BCB.PIX...",
     "image": "https://app.amplopay.com/api/v1/pix/qr/000201...",
+    "expiresAt": "2026-08-20T15:00:00.000Z",
     "base64": ""
   }
 }

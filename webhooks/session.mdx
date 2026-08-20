@@ -11,6 +11,64 @@ SESSION_UPDATED
 SESSION_ABANDONED
 ```
 
+## Payload fields
+
+<ResponseField name="event" type="string" required>
+  Event name. One of `SESSION_CREATED`, `SESSION_UPDATED`, or `SESSION_ABANDONED`.
+</ResponseField>
+
+<ResponseField name="token" type="string" required>
+  Token used to validate the authenticity of the notification.
+</ResponseField>
+
+<ResponseField name="checkoutUrl" type="string" required>
+  Exact checkout URL accessed by the customer.
+</ResponseField>
+
+<ResponseField name="checkoutSessionGuid" type="string" required>
+  Checkout session GUID.
+</ResponseField>
+
+<ResponseField name="checkoutSessionStatus" type="string" required>
+  Checkout session status.
+</ResponseField>
+
+<ResponseField name="checkoutSessionUpdatedAt" type="string" required>
+  Last checkout session update date.
+</ResponseField>
+
+<ResponseField name="checkoutSessionAbandonedAt" type="string">
+  Abandonment date. Present for abandoned sessions.
+</ResponseField>
+
+<ResponseField name="isRecovered" type="boolean" required>
+  Indicates whether the session was recovered.
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+  Session data.
+</ResponseField>
+
+<ResponseField name="data.orderId" type="string">
+  Order ID linked to the session, when available.
+</ResponseField>
+
+<ResponseField name="data.checkoutId" type="string" required>
+  Checkout ID.
+</ResponseField>
+
+<ResponseField name="data.productId" type="string" required>
+  Product ID.
+</ResponseField>
+
+<ResponseField name="data.client" type="object">
+  Customer data captured during checkout.
+</ResponseField>
+
+<ResponseField name="data.order" type="object">
+  Full order data. Present in abandoned session events when an order was already created.
+</ResponseField>
+
 ## Session created
 
 ```json
@@ -53,6 +111,36 @@ SESSION_ABANDONED
       "phone": "(11) 98337-5111",
       "cpf": "111.222.333-44",
       "cnpj": null
+    },
+    "order": {
+      "id": "order_id",
+      "currency": "BRL",
+      "totalAmount": 197,
+      "chargeAmount": 197,
+      "shippingFee": 0,
+      "extraFee": 0,
+      "discount": 0,
+      "installments": 1,
+      "paymentMethod": "PIX",
+      "offerCode": "OFERTA10",
+      "trackProps": {
+        "utm_source": "facebook",
+        "utm_campaign": "recuperacao"
+      },
+      "items": [
+        {
+          "id": "item_id",
+          "price": 197,
+          "quantity": 1,
+          "isBump": false,
+          "offerCode": "OFERTA10",
+          "product": {
+            "id": "product_id",
+            "name": "Produto de exemplo",
+            "externalId": "produto-exemplo"
+          }
+        }
+      ]
     }
   }
 }

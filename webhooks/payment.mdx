@@ -13,6 +13,104 @@ TRANSACTION_REFUNDED
 TRANSACTION_CHARGED_BACK
 ```
 
+## Payload fields
+
+<ResponseField name="event" type="string" required>
+  Event name. One of `TRANSACTION_CREATED`, `TRANSACTION_PAID`, `TRANSACTION_CANCELED`, `TRANSACTION_REFUNDED`, or `TRANSACTION_CHARGED_BACK`.
+</ResponseField>
+
+<ResponseField name="token" type="string" required>
+  Token used to validate the authenticity of the notification.
+</ResponseField>
+
+<ResponseField name="offerCode" type="string">
+  Offer code for internal checkout sales. It can be `null`.
+</ResponseField>
+
+<ResponseField name="checkoutUrl" type="string" required>
+  Exact checkout URL accessed by the customer, including session, offer, affiliate, and UTM search params. Empty when there is no checkout session.
+</ResponseField>
+
+<ResponseField name="client" type="object" required>
+  Customer data for the transaction.
+</ResponseField>
+
+<ResponseField name="transaction" type="object" required>
+  Transaction data.
+</ResponseField>
+
+<ResponseField name="transaction.id" type="string" required>
+  Transaction ID.
+</ResponseField>
+
+<ResponseField name="transaction.identifier" type="string">
+  Identifier sent by your application when creating the transaction.
+</ResponseField>
+
+<ResponseField name="transaction.status" type="string" required>
+  Transaction status.
+</ResponseField>
+
+<ResponseField name="transaction.paymentMethod" type="string" required>
+  Payment method used in the transaction.
+</ResponseField>
+
+<ResponseField name="transaction.originalCurrency" type="string">
+  Original transaction currency.
+</ResponseField>
+
+<ResponseField name="transaction.originalAmount" type="number">
+  Original transaction amount.
+</ResponseField>
+
+<ResponseField name="transaction.amount" type="number" required>
+  Transaction amount.
+</ResponseField>
+
+<ResponseField name="transaction.commissionAmount" type="number">
+  Producer commission amount.
+</ResponseField>
+
+<ResponseField name="transaction.currency" type="string" required>
+  Transaction currency.
+</ResponseField>
+
+<ResponseField name="transaction.exchangeRate" type="number">
+  Exchange rate used for the transaction.
+</ResponseField>
+
+<ResponseField name="transaction.installments" type="number">
+  Number of installments.
+</ResponseField>
+
+<ResponseField name="transaction.createdAt" type="string" required>
+  Transaction creation date.
+</ResponseField>
+
+<ResponseField name="transaction.payedAt" type="string">
+  Transaction payment date.
+</ResponseField>
+
+<ResponseField name="transaction.pixInformation" type="object">
+  Pix information, when available.
+</ResponseField>
+
+<ResponseField name="transaction.boletoInformation" type="object">
+  Boleto information, when available.
+</ResponseField>
+
+<ResponseField name="subscription" type="object">
+  Subscription data, when the transaction belongs to a recurring purchase.
+</ResponseField>
+
+<ResponseField name="orderItems" type="array">
+  Order items linked to the transaction.
+</ResponseField>
+
+<ResponseField name="trackProps" type="object">
+  Tracking properties, including UTMs, IP, and user agent when available.
+</ResponseField>
+
 ## Paid transaction example
 
 ```json
