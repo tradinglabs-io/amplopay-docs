@@ -19,10 +19,10 @@
     "decoration": "grid"
   },
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Gateway",
-        "groups": [
+        "group": "Gateway",
+        "pages": [
           {
             "group": "Getting started",
             "pages": [
@@ -37,34 +37,28 @@
             "group": "Endpoints",
             "pages": [
               "endpoints/status",
-
               "endpoints/producer/overview",
               "endpoints/producer/data",
               "endpoints/producer/balance",
               "endpoints/producer/credentials",
-
               "endpoints/payments/overview",
               "endpoints/payments/pix",
               "endpoints/payments/boleto",
               "endpoints/payments/card",
               "endpoints/payments/crypto",
               "endpoints/payments/pix-deposit",
-
               "endpoints/subscriptions/overview",
               "endpoints/subscriptions/pix",
               "endpoints/subscriptions/card",
               "endpoints/subscriptions/crypto",
               "endpoints/subscriptions/search",
-
               "endpoints/transactions/overview",
               "endpoints/transactions/search",
               "endpoints/transactions/refund",
-
               "endpoints/transfers/overview",
               "endpoints/transfers/create-pix",
               "endpoints/transfers/create-crypto",
               "endpoints/transfers/search",
-
               "endpoints/checkout",
               "endpoints/utils"
             ]
