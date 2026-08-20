@@ -1,15 +1,90 @@
 ---
 title: "Create Pix transfer"
 description: "Create a transfer or withdrawal via Pix"
+api: "POST /gateway/transfers"
 ---
-
-```http
-POST /gateway/transfers
-```
 
 Creates a transfer or withdrawal via Pix.
 
-## Payload
+## Body parameters
+
+<ParamField body="identifier" type="string" required>
+  Transfer identifier in your application.
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Transfer amount in BRL.
+</ParamField>
+
+<ParamField body="discountFeeOfReceiver" type="boolean">
+  If `false`, the withdrawal fee is not deducted from the receiver.
+</ParamField>
+
+<ParamField body="pix" type="object" required>
+  Receiver Pix key data.
+</ParamField>
+
+<ParamField body="pix.type" type="string" required>
+  Pix key type. Supported values include `cpf`, `cnpj`, `email`, `phone`, and `random`.
+</ParamField>
+
+<ParamField body="pix.key" type="string" required>
+  Receiver Pix key.
+</ParamField>
+
+<ParamField body="owner" type="object" required>
+  Account owner information.
+</ParamField>
+
+<ParamField body="owner.ip" type="string" required>
+  IPv4 of the user performing the transfer. It must be different from the application IP.
+</ParamField>
+
+<ParamField body="owner.name" type="string" required>
+  Account owner's name, without accents.
+</ParamField>
+
+<ParamField body="owner.document" type="object" required>
+  Account owner's document.
+</ParamField>
+
+<ParamField body="callbackUrl" type="string" required>
+  URL for transfer update notifications.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request POST \
+  --url {API_BASE_URL}/gateway/transfers \
+  --header 'Content-Type: application/json' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+  --data '{
+    "identifier": "identifier123",
+    "callbackUrl": "https://example.com/callback",
+    "amount": 1000,
+    "discountFeeOfReceiver": false,
+    "pix": {
+      "type": "email",
+      "key": "cliente@email.com"
+    },
+    "owner": {
+      "ip": "192.168.0.1",
+      "name": "Nome do Cliente",
+      "document": {
+        "type": "cpf",
+        "number": "123.456.789-00"
+      }
+    }
+  }'
+```
+
+</RequestExample>
+
+## Payload example
 
 ```json
 {
@@ -32,22 +107,25 @@ Creates a transfer or withdrawal via Pix.
 }
 ```
 
-## Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `identifier` | string | yes | Transfer identifier in your application |
-| `amount` | number | yes | Transfer amount in BRL |
-| `discountFeeOfReceiver` | boolean | no | If `false`, the fee is not deducted from the receiver |
-| `pix.type` | enum | yes | Pix key type |
-| `pix.key` | string | yes | Receiver's Pix key |
-| `owner.ip` | string | yes | IPv4 of the user performing the transfer. It must be different from the application IP |
-| `owner.name` | string | yes | Account owner's name, without accents |
-| `owner.document.type` | string | yes | Document type |
-| `owner.document.number` | string | yes | Document number |
-| `callbackUrl` | string | yes | URL for transfer notifications |
-
 ## Response
+
+<ResponseField name="webhookToken" type="string" required>
+  Token used to validate transfer webhook notifications.
+</ResponseField>
+
+<ResponseField name="withdraw" type="object" required>
+  Withdrawal information.
+</ResponseField>
+
+<ResponseField name="payoutAccount" type="object" required>
+  Payout account information.
+</ResponseField>
+
+<ResponseField name="receiptUrl" type="string">
+  Withdrawal receipt URL.
+</ResponseField>
+
+<ResponseExample>
 
 ```json
 {
@@ -73,3 +151,5 @@ Creates a transfer or withdrawal via Pix.
   "receiptUrl": "https://example.com/withdraws/cmen9ufoa00002v6oi1zo8x3f/receipt"
 }
 ```
+
+</ResponseExample>

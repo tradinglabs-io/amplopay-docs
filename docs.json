@@ -11,19 +11,17 @@
     "light": "/images/icon.png",
     "dark": "/images/icon.png"
   },
+  "logo": {
+    "light": "/images/logowhite.png",
+    "dark": "/images/logoblack.png"
+  },
+  "background": {
+    "decoration": "grid"
+  },
   "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Gateway",
         "groups": [
           {
             "group": "Getting started",
@@ -38,53 +36,34 @@
             "group": "Endpoints",
             "pages": [
               "endpoints/status",
-              {
-                "group": "Producer",
-                "pages": [
-                  "endpoints/producer/overview",
-                  "endpoints/producer/data",
-                  "endpoints/producer/balance",
-                  "endpoints/producer/credentials"
-                ]
-              },
-              {
-                "group": "Payments",
-                "pages": [
-                  "endpoints/payments/overview",
-                  "endpoints/payments/pix",
-                  "endpoints/payments/boleto",
-                  "endpoints/payments/card",
-                  "endpoints/payments/crypto",
-                  "endpoints/payments/pix-deposit"
-                ]
-              },
-              {
-                "group": "Subscriptions",
-                "pages": [
-                  "endpoints/subscriptions/overview",
-                  "endpoints/subscriptions/pix",
-                  "endpoints/subscriptions/card",
-                  "endpoints/subscriptions/crypto",
-                  "endpoints/subscriptions/search"
-                ]
-              },
-              {
-                "group": "Transactions",
-                "pages": [
-                  "endpoints/transactions/overview",
-                  "endpoints/transactions/search",
-                  "endpoints/transactions/refund"
-                ]
-              },
-              {
-                "group": "Transfers",
-                "pages": [
-                  "endpoints/transfers/overview",
-                  "endpoints/transfers/create-pix",
-                  "endpoints/transfers/create-crypto",
-                  "endpoints/transfers/search"
-                ]
-              },
+
+              "endpoints/producer/overview",
+              "endpoints/producer/data",
+              "endpoints/producer/balance",
+              "endpoints/producer/credentials",
+
+              "endpoints/payments/overview",
+              "endpoints/payments/pix",
+              "endpoints/payments/boleto",
+              "endpoints/payments/card",
+              "endpoints/payments/crypto",
+              "endpoints/payments/pix-deposit",
+
+              "endpoints/subscriptions/overview",
+              "endpoints/subscriptions/pix",
+              "endpoints/subscriptions/card",
+              "endpoints/subscriptions/crypto",
+              "endpoints/subscriptions/search",
+
+              "endpoints/transactions/overview",
+              "endpoints/transactions/search",
+              "endpoints/transactions/refund",
+
+              "endpoints/transfers/overview",
+              "endpoints/transfers/create-pix",
+              "endpoints/transfers/create-crypto",
+              "endpoints/transfers/search",
+
               "endpoints/checkout",
               "endpoints/utils"
             ]
@@ -113,12 +92,5 @@
         ]
       }
     ]
-  },
-  "logo": {
-    "light": "/images/logowhite.png",
-    "dark": "/images/logoblack.png"
-  },
-  "background": {
-    "decoration": "grid"
   }
 }

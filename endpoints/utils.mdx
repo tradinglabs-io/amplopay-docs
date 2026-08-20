@@ -1,17 +1,41 @@
 ---
 title: "Utilities"
 description: "Auxiliary API endpoints"
+api: "GET /gateway/utils/exchange-rates"
 ---
 
 ## Exchange rates
 
-```http
-GET /gateway/utils/exchange-rates
-```
-
 Queries or calculates the exchange rate between currencies.
 
-### Query params
+## Query parameters
+
+<ParamField query="from" type="string" required>
+  Source currency.
+</ParamField>
+
+<ParamField query="to" type="string" required>
+  Target currency.
+</ParamField>
+
+<ParamField query="amount" type="number">
+  Amount to convert.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request GET \
+  --url '{API_BASE_URL}/gateway/utils/exchange-rates?from=USD&to=BRL&amount=100' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
+```
+
+</RequestExample>
+
+## Query example
 
 ```text
 from=USD&to=BRL&amount=100

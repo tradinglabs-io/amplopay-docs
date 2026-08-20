@@ -1,14 +1,38 @@
 ---
 title: "Search transfer"
 description: "Query a transfer or withdrawal"
+api: "GET /gateway/transfers-search"
 ---
-
-```http
-GET /gateway/transfers-search
-```
 
 Queries a transfer or withdrawal.
 
 <Warning>
-  Avoid frequent polling. Use webhooks to track updates.
+Avoid frequent polling. Use webhooks to track updates.
 </Warning>
+
+## Query parameters
+
+<ParamField query="id" type="string">
+  Withdrawal or transfer ID.
+</ParamField>
+
+<ParamField query="identifier" type="string">
+  Transfer identifier sent by your application.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Transfer status filter.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request GET \
+  --url '{API_BASE_URL}/gateway/transfers-search?identifier=identifier123' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
+```
+
+</RequestExample>

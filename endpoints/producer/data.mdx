@@ -1,14 +1,24 @@
 ---
 title: "Get producer data"
 description: "Return data for the authenticated producer"
+api: "GET /gateway/producer"
 ---
-
-```http
-GET /gateway/producer
-```
 
 Returns data for the authenticated producer.
 
 <Info>
-  This endpoint requires the `x-public-key` and `x-secret-key` headers.
+This endpoint requires the `x-public-key` and `x-secret-key` headers.
 </Info>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request GET \
+  --url {API_BASE_URL}/gateway/producer \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
+```
+
+</RequestExample>

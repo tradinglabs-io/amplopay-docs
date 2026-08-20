@@ -1,26 +1,69 @@
 ---
 title: "Search transactions"
 description: "Query transactions created through the API"
+api: "GET /gateway/transactions"
 ---
-
-```http
-GET /gateway/transactions
-```
 
 Queries created transactions.
 
 <Warning>
-  Do not use this endpoint for frequent polling. Configure webhooks to receive real-time status updates.
+Do not use this endpoint for frequent polling. Configure webhooks to receive real-time status updates.
 </Warning>
 
-## Query params
+## Query parameters
 
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | string | no | Transaction ID returned by the API |
-| `clientIdentifier` | string | no | Identifier you sent when creating the transaction |
+<ParamField query="id" type="string">
+  Transaction ID returned by the API.
+</ParamField>
+
+<ParamField query="clientIdentifier" type="string">
+  Identifier you sent when creating the transaction.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request GET \
+  --url '{API_BASE_URL}/gateway/transactions?clientIdentifier=5286-412312-asd-123' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI'
+```
+
+</RequestExample>
 
 ## Response
+
+<ResponseField name="id" type="string" required>
+  Transaction ID.
+</ResponseField>
+
+<ResponseField name="clientIdentifier" type="string" required>
+  Identifier sent by your application when creating the transaction.
+</ResponseField>
+
+<ResponseField name="currency" type="string" required>
+  Transaction currency.
+</ResponseField>
+
+<ResponseField name="amount" type="number" required>
+  Transaction amount.
+</ResponseField>
+
+<ResponseField name="chargeAmount" type="number" required>
+  Amount charged to the customer.
+</ResponseField>
+
+<ResponseField name="status" type="string" required>
+  Transaction status.
+</ResponseField>
+
+<ResponseField name="paymentMethod" type="string" required>
+  Payment method used for the transaction.
+</ResponseField>
+
+<ResponseExample>
 
 ```json
 {
@@ -59,3 +102,5 @@ Queries created transactions.
   }
 }
 ```
+
+</ResponseExample>

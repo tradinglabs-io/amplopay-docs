@@ -1,15 +1,85 @@
 ---
 title: "Create Pix subscription"
 description: "Create a recurring subscription charged through Pix"
+api: "POST /gateway/pix/subscription"
 ---
-
-```http
-POST /gateway/pix/subscription
-```
 
 Creates a Pix subscription.
 
-## Payload
+## Body parameters
+
+<ParamField body="identifier" type="string" required>
+  Unique identifier for this subscription in your application.
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Subscription charge amount.
+</ParamField>
+
+<ParamField body="client" type="object" required>
+  Customer information.
+</ParamField>
+
+<ParamField body="product" type="object" required>
+  Product associated with the subscription.
+</ParamField>
+
+<ParamField body="subscription" type="object" required>
+  Recurrence configuration.
+</ParamField>
+
+<ParamField body="subscription.periodicityType" type="string" required>
+  Periodicity type. Supported values: `DAYS`, `WEEKS`, `MONTHS`, `YEARS`.
+</ParamField>
+
+<ParamField body="subscription.periodicity" type="number" required>
+  Recurrence interval.
+</ParamField>
+
+<ParamField body="subscription.firstChargeIn" type="number">
+  Number of periods before the first charge.
+</ParamField>
+
+<ParamField body="callbackUrl" type="string">
+  URL that will receive subscription webhook notifications.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request POST \
+  --url {API_BASE_URL}/gateway/pix/subscription \
+  --header 'Content-Type: application/json' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+  --data '{
+    "identifier": "assinatura-123",
+    "amount": 97,
+    "client": {
+      "name": "João da Silva",
+      "email": "joao@email.com",
+      "phone": "(11) 99999-9999",
+      "document": "123.456.789-00"
+    },
+    "product": {
+      "id": "plano-mensal",
+      "name": "Plano mensal",
+      "price": 97
+    },
+    "subscription": {
+      "periodicityType": "MONTHS",
+      "periodicity": 1,
+      "firstChargeIn": 0
+    },
+    "callbackUrl": "https://minha-api.com/webhooks/payment"
+  }'
+```
+
+</RequestExample>
+
+## Payload example
 
 ```json
 {

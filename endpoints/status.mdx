@@ -1,20 +1,36 @@
 ---
 title: "Status"
 description: "Check whether the API is online"
+api: "GET /ping"
 ---
 
 ## Check API status
 
-```http
-GET /ping
-```
-
 Authentication is not required.
 
-### Response
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request GET \
+  --url {API_BASE_URL}/ping
+```
+
+</RequestExample>
+
+## Response
+
+<ResponseField name="message" type="string" required>
+  Confirmation message indicating that the server is online.
+</ResponseField>
+
+<ResponseExample>
 
 ```json
 {
   "message": "pong"
 }
 ```
+
+</ResponseExample>

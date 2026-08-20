@@ -1,21 +1,71 @@
 ---
 title: "Checkout"
 description: "Create checkout through the API"
+api: "POST /gateway/checkout"
 ---
 
 ## Create checkout
 
-```http
-POST /gateway/checkout
-```
-
 Creates a product, offer, and checkout link through the API.
 
 <Info>
-  This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company setting that allows checkout creation through the API.
+This endpoint depends on the `PRODUCER_CHECKOUT` permission and the company setting that allows checkout creation through the API.
 </Info>
 
-### Payload
+## Body parameters
+
+<ParamField body="product" type="object" required>
+  Product that will be sold through the checkout.
+</ParamField>
+
+<ParamField body="offer" type="object" required>
+  Offer configuration for the checkout.
+</ParamField>
+
+<ParamField body="successUrl" type="string">
+  URL where the customer is redirected after a successful checkout.
+</ParamField>
+
+<ParamField body="cancelUrl" type="string">
+  URL where the customer is redirected after canceling the checkout.
+</ParamField>
+
+<ParamField body="callbackUrl" type="string">
+  URL that will receive checkout/payment webhook notifications.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request POST \
+  --url {API_BASE_URL}/gateway/checkout \
+  --header 'Content-Type: application/json' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+  --data '{
+    "product": {
+      "id": "produto-123",
+      "name": "Curso de marketing",
+      "description": "Produto de exemplo",
+      "price": 197,
+      "imageUrl": "https://minha-api.com/produto.png"
+    },
+    "offer": {
+      "code": "OFERTA10",
+      "price": 197,
+      "currency": "BRL"
+    },
+    "successUrl": "https://minha-api.com/sucesso",
+    "cancelUrl": "https://minha-api.com/cancelado",
+    "callbackUrl": "https://minha-api.com/webhooks/payment"
+  }'
+```
+
+</RequestExample>
+
+## Payload example
 
 ```json
 {

@@ -1,80 +1,52 @@
 ---
-title: "Authenticate Requests to the AmploPay API"
-sidebarTitle: "Authentication"
-description: "AmploPay uses HTTP Basic authentication with a Client ID and Client Secret generated from the merchant panel to authorize every API request."
+title: "Authentication"
+description: "How to authenticate requests to the Gateway API"
 ---
 
-AmploPay authenticates every API call with a **Client ID** and **Client Secret** pair. Both values are generated from the AmploPay merchant panel and must be sent with every request using HTTP Basic authentication.
+Authentication is required to access protected endpoints in the `{settings.title}` API.
 
-## Get your credentials
+## Getting credentials
 
-<Steps>
-  <Step title="Open the panel">
-    Sign in at [app.amplopay.com](https://app.amplopay.com) and go to **Integrations → API**.
-  </Step>
-  <Step title="Create a new credential">
-    Click **New credential**, give it a descriptive name, and select the **Create/Consult transactions** scope.
-  </Step>
-  <Step title="Copy the values">
-    Copy the **Client ID** and **Client Secret**. The Client Secret is shown only once, store it in a secret manager.
-  </Step>
-</Steps>
+To use the API, you need a public key and a private key. These credentials can be generated in your account dashboard.
 
-## Sign a request
+1. Access the `{settings.title}` dashboard.
+2. Go to the API section in the integrations area.
+3. Click `Generate credentials`.
+4. Store the keys in a secure location. The private key will not be displayed again.
 
-Pass the credentials as HTTP Basic authentication. The `Authorization` header is the base64 encoding of `client_id:client_secret`.
+## Required headers
 
-<CodeGroup>
+Include the headers below in every authenticated request:
 
-```bash curl
-curl https://api.amplopay.com/v1/transactions/tx_123 \
-  -u "$AMPLOPAY_CLIENT_ID:$AMPLOPAY_CLIENT_SECRET"
-```
-
-```javascript Node.js
-const credentials = Buffer.from(
-  `${process.env.AMPLOPAY_CLIENT_ID}:${process.env.AMPLOPAY_CLIENT_SECRET}`
-).toString("base64");
-
-await fetch("https://api.amplopay.com/v1/transactions/tx_123", {
-  headers: { Authorization: `Basic ${credentials}` },
-});
-```
-
-```python Python
-import os
-import requests
-
-requests.get(
-    "https://api.amplopay.com/v1/transactions/tx_123",
-    auth=(os.environ["AMPLOPAY_CLIENT_ID"], os.environ["AMPLOPAY_CLIENT_SECRET"]),
-)
-```
-
-</CodeGroup>
-
-## Security best practices
-
-- **Never** commit credentials to source control. Load them from environment variables or a secret manager.
-- Restrict credential scopes to only what your integration needs.
-- Rotate credentials periodically, and immediately if you suspect a leak.
-- Use HTTPS for every request. AmploPay refuses plaintext HTTP.
-
-## Errors
-
-If authentication fails, the API responds with `401 Unauthorized`:
-
-```json
-{
-  "message": "Invalid credentials"
-}
-```
-
-Common causes:
-
-| Cause | Fix |
+| Header | Description |
 | --- | --- |
-| Wrong Client ID or Client Secret | Double-check the values from the panel. |
-| Credential revoked | Generate a new credential. |
-| Missing `Authorization` header | Include the header on every request. |
-| Insufficient scope | Enable **Create/Consult transactions** on the credential. |
+| `x-public-key` | Your public key |
+| `x-secret-key` | Your secret key |
+
+## Axios example
+
+<Warning>
+The example below is illustrative only. It shows how to send the headers, but it does not represent a specific endpoint.
+</Warning>
+
+```js
+await axios.get("{API_BASE_URL}", {
+  headers: {
+    "x-public-key": "SUA_CHAVE_PUBLICA_AQUI",
+    "x-secret-key": "SUA_CHAVE_PRIVADA_AQUI"
+  }
+})
+```
+
+## Security
+
+- Never share your private key.
+- Store keys in environment variables, vaults, or secret managers.
+- Never include keys in frontend code.
+- Never commit credentials to repositories.
+- Always use HTTPS.
+- Monitor credential usage and regenerate keys if compromise is suspected.
+
+## Support
+
+If you have questions about credentials or authentication, contact us at `{settings.supportEmail}`.

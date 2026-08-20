@@ -1,10 +1,60 @@
 ---
 title: "Create crypto transfer"
 description: "Create a crypto withdrawal or transfer"
+api: "POST /gateway/producer/withdrawals/crypto"
 ---
 
-```http
-POST /gateway/producer/withdrawals/crypto
+Creates a crypto withdrawal or transfer.
+
+## Body parameters
+
+<ParamField body="identifier" type="string" required>
+  Transfer identifier in your application.
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Withdrawal amount.
+</ParamField>
+
+<ParamField body="currency" type="string" required>
+  Fiat currency used as the withdrawal reference amount.
+</ParamField>
+
+<ParamField body="cryptoCurrency" type="string" required>
+  Cryptocurrency to send.
+</ParamField>
+
+<ParamField body="network" type="string" required>
+  Blockchain network used for the transfer.
+</ParamField>
+
+<ParamField body="walletAddress" type="string" required>
+  Destination wallet address.
+</ParamField>
+
+<ParamField body="callbackUrl" type="string">
+  URL for transfer update notifications.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request POST \
+  --url {API_BASE_URL}/gateway/producer/withdrawals/crypto \
+  --header 'Content-Type: application/json' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+  --data '{
+    "identifier": "crypto-withdraw-123",
+    "amount": 100,
+    "currency": "BRL",
+    "cryptoCurrency": "USDT",
+    "network": "TRON",
+    "walletAddress": "TXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "callbackUrl": "https://minha-api.com/webhooks/transfer"
+  }'
 ```
 
-Creates a crypto withdrawal or transfer.
+</RequestExample>

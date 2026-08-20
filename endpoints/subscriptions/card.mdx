@@ -1,15 +1,84 @@
 ---
 title: "Create card subscription"
 description: "Create a recurring subscription charged through card"
+api: "POST /gateway/card/subscription"
 ---
-
-```http
-POST /gateway/card/subscription
-```
 
 Creates a card subscription.
 
-## Payload
+## Body parameters
+
+<ParamField body="identifier" type="string" required>
+  Unique identifier for this subscription in your application.
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Subscription charge amount.
+</ParamField>
+
+<ParamField body="client" type="object" required>
+  Customer information.
+</ParamField>
+
+<ParamField body="card" type="object" required>
+  Card data used for recurring charges.
+</ParamField>
+
+<ParamField body="product" type="object" required>
+  Product associated with the subscription.
+</ParamField>
+
+<ParamField body="subscription" type="object" required>
+  Recurrence configuration.
+</ParamField>
+
+<ParamField body="callbackUrl" type="string">
+  URL that will receive subscription webhook notifications.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+
+```bash
+curl --request POST \
+  --url {API_BASE_URL}/gateway/card/subscription \
+  --header 'Content-Type: application/json' \
+  --header 'x-public-key: SUA_CHAVE_PUBLICA_AQUI' \
+  --header 'x-secret-key: SUA_CHAVE_PRIVADA_AQUI' \
+  --data '{
+    "identifier": "assinatura-card-123",
+    "amount": 97,
+    "client": {
+      "name": "João da Silva",
+      "email": "joao@email.com",
+      "phone": "(11) 99999-9999",
+      "document": "123.456.789-00"
+    },
+    "card": {
+      "holderName": "JOAO DA SILVA",
+      "number": "4111111111111111",
+      "expirationMonth": "12",
+      "expirationYear": "2030",
+      "cvv": "123"
+    },
+    "product": {
+      "id": "plano-mensal",
+      "name": "Plano mensal",
+      "price": 97
+    },
+    "subscription": {
+      "periodicityType": "MONTHS",
+      "periodicity": 1,
+      "firstChargeIn": 0
+    },
+    "callbackUrl": "https://minha-api.com/webhooks/payment"
+  }'
+```
+
+</RequestExample>
+
+## Payload example
 
 ```json
 {
