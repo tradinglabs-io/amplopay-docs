@@ -19,9 +19,9 @@
     "decoration": "grid"
   },
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "Gateway",
+        "tab": "Gateway",
         "pages": [
           {
             "group": "Getting started",
